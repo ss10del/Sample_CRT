@@ -2,7 +2,7 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
         <application>CARES_Console_App</application>
-        <default>false</default>
+        <default>true</default>
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
@@ -283,7 +283,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_AdminGroupsSetupServiceTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_AdminHearingTriggerHandler</apexClass>
@@ -303,6 +303,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_AdminHomeControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CARES_AdopPlaceAD42RHandlerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -643,7 +647,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ApprovalActionHandlerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ApprovalActionSearchController</apexClass>
@@ -943,6 +947,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_AttendeeSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CARES_AttendeesTriggerHandlerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1487,107 +1495,107 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphChunkHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphCoercionHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphContextHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphDirectChildExecutor</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphDmlHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphFetchHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphFieldChunkExecutor</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphImportController</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphImportControllerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphImportService</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphImportService_Test</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphObfuscationAPI</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphObfuscationAPITest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphObfuscator</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphQueryExecutor</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphQueryService</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphQueueableHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphRecordTypeHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphRecordUtil</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphRefExpander</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphReferenceHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphRelationshipFilter</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphSchemaUtil</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphUpsertHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphUtilClassesTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseGraphValidator</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseListViewController</apexClass>
@@ -1611,7 +1619,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseManagementPromotionBatch</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseManagementPromotionBatchTest</apexClass>
@@ -1619,11 +1627,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseManagementPromotionWorker</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CaseManagementPromotionWorkerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CasePSRequestPersonController</apexClass>
@@ -1999,19 +2007,19 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ClonePayloadFileService</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CloneRequestOrchestrator</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CloneRequestOrchestratorTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CloneRequestTriggerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ClosureHistTriggerHandler</apexClass>
@@ -2327,7 +2335,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ControllingCaseInitializateTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ControllingCaseInitialization</apexClass>
@@ -2355,7 +2363,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ControllingReferralInitializeTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ControllingReferralTest</apexClass>
@@ -2603,7 +2611,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CourtWorkItemFolioTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_CourtWorkItemFolios</apexClass>
@@ -4223,7 +4231,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_GenerateNodeStructureController</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_GenericAddrSearchCntrlrServiceTest</apexClass>
@@ -4835,7 +4843,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_IdParsingUtil</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_IdentificationApplicationTest</apexClass>
@@ -4903,7 +4911,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_IndirectAccessOpenUOWProcessor</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_IndirectAccessProcessor</apexClass>
@@ -4915,7 +4923,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_IndirectAccessUOWProcessor</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_InspectionTriggerHandler</apexClass>
@@ -5283,7 +5291,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_NYTDSurveyResponseControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_NameSSNDOBComparePage</apexClass>
@@ -5291,15 +5299,15 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_NavNode</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_NavNodeHelper</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_NodeDataTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_NoticeDistributionService</apexClass>
@@ -5727,7 +5735,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_PersonMergeCourtMinuteHelperTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_PersonMergeFutureWrapper</apexClass>
@@ -5859,7 +5867,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_PersonStateIdControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_PetitionAllegationDomain</apexClass>
@@ -5963,7 +5971,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_PlacementOptionSelectorTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_PlacementOptionTriggerHandler</apexClass>
@@ -7367,7 +7375,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_SObjectSerializationUtil</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_SSBReclaimSelector</apexClass>
@@ -7799,7 +7807,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_SecondaryWorkerCalSAWSSharingTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_SecondaryWorkerSecTriggerHelper</apexClass>
@@ -8039,7 +8047,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableCandidacyDetTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableCandidacyDetermination</apexClass>
@@ -8055,7 +8063,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableCasePersonTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableCaseTest</apexClass>
@@ -8143,7 +8151,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableExtracurricularActivities</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableFamilyFinding</apexClass>
@@ -8371,7 +8379,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableReferralPersonTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableReferralTest</apexClass>
@@ -8471,7 +8479,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableSocialHistoryTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_ShareableSpecialProjCode</apexClass>
@@ -9263,7 +9271,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_UnitMemberSharingBatchTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_UnitMemberSharingTest</apexClass>
@@ -9355,11 +9363,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_UserMembershipSync</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_UserMembershipSyncTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_UserOverrideAccessHelper</apexClass>
@@ -9371,11 +9379,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_UserPermissionPolicy</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_UserPermissionPolicyTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_UserPermissionSetHelper</apexClass>
@@ -9859,7 +9867,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>Cares_LeftNavConfigBatch</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>Cares_RFALWCLookupController</apexClass>
@@ -9915,11 +9923,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ChildGrandchildSpec</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ChildGrandchildSpecTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CommunitiesLandingController</apexClass>
@@ -9983,7 +9991,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>DataMaskingConstantsClone</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>DebugJsonLog</apexClass>
@@ -9991,7 +9999,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>DeleteRecordsBatch</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>FFPSA_AssignWorkerFlowController</apexClass>
@@ -10063,7 +10071,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_AdminPanelControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_AssignmentHandler</apexClass>
@@ -10079,7 +10087,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_AssignmentMaintenanceTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_AssignmentTriggerHandler</apexClass>
@@ -10115,7 +10123,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_ControllingSObjectTransferTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_GroupMembershipOpsQueueable</apexClass>
@@ -10123,7 +10131,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_GroupMembershipOpsQueueableTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_GroupMembershipService</apexClass>
@@ -10131,7 +10139,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_GroupMembershipServiceTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_GroupService</apexClass>
@@ -10139,7 +10147,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_GroupServiceTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_IControllingSObject</apexClass>
@@ -10171,15 +10179,15 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_IndirectAccessBuilderClosedUOWTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_IndirectAccessBuilderOpenUOW</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_IndirectAccessBuilderOpenUOWTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_IndirectAccessBuilderTest</apexClass>
@@ -10191,7 +10199,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_IndirectAccessCalculationTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_InitializeControllingSObject</apexClass>
@@ -10203,7 +10211,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_RelatedAccessService</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_RelatedAccessTriggerHandler</apexClass>
@@ -10227,7 +10235,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GS_SObjectSharesAPI</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GS_SObjectSharesTest</apexClass>
@@ -10251,15 +10259,15 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GenericComboboxMultiSelectConstants</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GenericComboboxMultiSelectConstantsTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GroupMembershipServiceTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>HistoryController</apexClass>
@@ -10771,7 +10779,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ModuleWiseExceptionControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>MyProfilePageController</apexClass>
@@ -10803,7 +10811,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>RelatedLogEntriesController_Tests</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>SE_UserDetailWrapper</apexClass>
@@ -10871,19 +10879,19 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_Answer</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_AnswerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_AnyOrder</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_AnyOrderTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ApexMocks</apexClass>
@@ -10891,7 +10899,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ApexMocksConfig</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ApexMocksTest</apexClass>
@@ -10915,39 +10923,39 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ArgumentCaptor</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ArgumentCaptorTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IDGenerator</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IDGeneratorTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IDomain</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IDomainConstructor</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IDomainFactory</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IMatcher</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IObjects</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ISObjectDomain</apexClass>
@@ -10963,27 +10971,27 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ISObjects</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ISelectorFactory</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IServiceFactory</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_IUnitOfWorkFactory</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_InOrder</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_InOrderTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_Inheritor</apexClass>
@@ -10995,7 +11003,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_InvocationOnMock</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_Match</apexClass>
@@ -11023,11 +11031,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_MethodArgValuesTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_MethodCountRecorder</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_MethodReturnValue</apexClass>
@@ -11035,7 +11043,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_MethodReturnValueRecorder</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_MethodVerifier</apexClass>
@@ -11043,19 +11051,19 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_Mocks</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_MyList</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_Objects</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_ObjectsTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_QualifiedMethod</apexClass>
@@ -11063,7 +11071,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_QualifiedMethodAndArgValues</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_QualifiedMethodAndArgValuesTest</apexClass>
@@ -11123,7 +11131,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_SObjectsTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_SecurityUtils</apexClass>
@@ -11147,11 +11155,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_SystemTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>fflib_VerificationMode</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__AccessTokenController</apexClass>
@@ -11159,7 +11167,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__AccessTokenControllerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__ActiveIntegrationProcedureDynPicklist</apexClass>
@@ -11203,7 +11211,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__AutoCustomLabelReferenceTestResources</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__BaseDisplayController</apexClass>
@@ -11527,7 +11535,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DefaultGenGlobalKeyVersionTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DefaultGenerateGlobalKeyImplementation</apexClass>
@@ -11623,7 +11631,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocGenIndPermUtilTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocGenInvokeService</apexClass>
@@ -11687,7 +11695,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocgenOpenInterfaceSharingWrapperTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocgenPermSetMethods</apexClass>
@@ -11755,7 +11763,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocumentTemplateSection</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocumentTemplateSectionModel</apexClass>
@@ -11827,7 +11835,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardCompilerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardController</apexClass>
@@ -11839,11 +11847,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardControllerWithoutSharing</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardControllerWithoutSharingTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardException</apexClass>
@@ -11871,7 +11879,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FormulaParserService</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FormulaParserTest</apexClass>
@@ -11911,7 +11919,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__ImageBlobGeneratorMock</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__IntegrationProcedureDataSourceProvider</apexClass>
@@ -12007,11 +12015,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__LegalBannerController</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__LegalBannerControllerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__Logger</apexClass>
@@ -12083,7 +12091,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__ObjectDocumentCreationDocxCntrlTokenTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__ObjectDocumentCreationDocxController</apexClass>
@@ -13219,42 +13227,42 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Assignment_Group_Base_Read__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Assignment_Group_Base_Write__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Assignment_Group_Read__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Assignment_Group_Status__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Assignment_Group_Type__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Assignment_Group_Write__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Assignment_Unit__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Assignment_Users__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -13349,7 +13357,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.CWS_CMS_Service_Provider_Type1__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -14570,6 +14578,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.OperatingHoursId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Operating_Year_Round__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -14794,12 +14807,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Post_Approval_RFH_Hrs_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Pre_Approval_RFH_Hrs_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -14929,7 +14942,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.RFA_Primary_Worker__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15114,7 +15127,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.ShowPortalUsers__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15214,14 +15227,14 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.TTY_Phone_Ext__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.TTY_Phone__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -15309,12 +15322,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.User_Not_within_Approval_County__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.User_within_Approval_County__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15504,9 +15517,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Address__c.Validated_Address__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -15514,87 +15527,87 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_AAP_Read__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_AAP_Write__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_ADP_Read__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_ADP_Write__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_PROB_Read__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_PROB_Write__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_PRVTN_Read__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_PRVTN_Write__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_RM_Read__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_RM_Write__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_Read_AAP_State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_Read_Adoption_State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_Read_Prevention_State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_Read_Probation_State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_Read_SetAside_State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_SetAside_Read__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Administrative_Area__c.PublicGroup_SetAside_Write__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15664,9 +15677,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Assessment.Account_Source__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -15974,9 +15987,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Capacity__c.Report_Month__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -15999,7 +16012,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Is_County_Fiscal_Logged_In__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -16099,24 +16112,24 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Child_Location__c.Account_County__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Child_Location__c.Account_Placement_Type__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Child_Location__c.Account_Record_Type__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Child_Location__c.Account_Source__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -16659,7 +16672,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Child_Location__c.Is_Application_Exists__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -17329,54 +17342,54 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Current_Level__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Error_Details__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Initiated_By__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Max_Depth__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Next_Record_Ids__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Number_of_Copies__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Processed_Records__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Status__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Target_Environment__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Clone_Request__c.Upsert_Job_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -17434,9 +17447,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact_Log__c.Account_Placement_Type__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -17444,9 +17457,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact_Log__c.Account_Source__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -18099,9 +18112,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Eligibility__c.Case_ID_Referral_ID__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -19059,9 +19072,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Eligibility__c.State_ID__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -19424,89 +19437,89 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Child_Relationship_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Component_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.External_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Is_Hide_On_Edit__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Is_Hide_On_New__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Label__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Nav_Screen__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Object_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Order__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Page_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Nav_Node__c.Record_Type_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Region_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Section_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Type__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.User_Criteria__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Visibility_Criteria__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Node__c.Visibility_Rule__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -19524,39 +19537,39 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Screen__c.Component_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Screen__c.External_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Screen__c.Kreator_Page_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Nav_Screen__c.Unique_Screen_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Node_Parameters__c.Attribute__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Node_Parameters__c.External_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Node_Parameters__c.Value__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -19581,32 +19594,32 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Node_Visibility_rule__c.Expression__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Node_Visibility_rule__c.External_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Node_Visibility_rule__c.Field_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Node_Visibility_rule__c.Operator__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Node_Visibility_rule__c.Sequence__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Node_Visibility_rule__c.Value__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -19644,19 +19657,19 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Out_of_State_Registry__c.Account_Placement_Type__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Out_of_State_Registry__c.Account_Record_Type__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Out_of_State_Registry__c.Account_Source__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -19674,9 +19687,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Participant__c.Complaint_County__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -20079,9 +20092,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Person_Relationship__c.Type_Formula__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -20634,12 +20647,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Plan__c.Account_Record_Type__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Plan__c.CAP_Overdue__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -20834,14 +20847,14 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Provider_Address__c.Account_County__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Provider_Address__c.Account_Record_Type__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -20964,7 +20977,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>PublicComplaint.Public_Complaint_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -20974,7 +20987,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>PublicComplaint.Record_Type_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -21059,9 +21072,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Related_Health_Information__c.Related_Health_Record__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -21204,7 +21217,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Report_Participant__c.Salesforce_Record_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -21399,9 +21412,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Reports__c.Is_Portal_Record__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -21572,6 +21585,11 @@
         <editable>true</editable>
         <field>Reports__c.Report_Date__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Reports__c.Report_ID__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -21789,24 +21807,24 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Special_Project_Code__c.Organization_County__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Special_Project_Code__c.Organization_Placement_Type__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Special_Project_Code__c.Organization_RecordType__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Special_Project_Code__c.Organization_Source__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -22320,6 +22338,11 @@
         <startAddress>44.233.254.18</startAddress>
     </loginIpRanges>
     <loginIpRanges>
+        <description>DAST</description>
+        <endAddress>44.237.79.121</endAddress>
+        <startAddress>44.237.79.121</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
         <description>DC Workspace</description>
         <endAddress>54.190.205.159</endAddress>
         <startAddress>54.190.205.159</startAddress>
@@ -22360,6 +22383,15 @@
         <startAddress>134.238.235.60</startAddress>
     </loginIpRanges>
     <loginIpRanges>
+        <endAddress>165.1.214.38</endAddress>
+        <startAddress>165.1.214.38</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>temp</description>
+        <endAddress>165.85.51.8</endAddress>
+        <startAddress>165.85.51.8</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
         <description>Prisma VPN</description>
         <endAddress>165.85.51.55</endAddress>
         <startAddress>165.85.51.55</startAddress>
@@ -22368,6 +22400,11 @@
         <description>Prisma VPN</description>
         <endAddress>165.85.51.133</endAddress>
         <startAddress>165.85.51.133</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>undefined</description>
+        <endAddress>165.85.160.60</endAddress>
+        <startAddress>165.85.160.60</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Prisma VPN</description>
@@ -22402,6 +22439,11 @@
         <description>Global Protect</description>
         <endAddress>169.2.248.236</endAddress>
         <startAddress>169.2.248.236</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>DAST</description>
+        <endAddress>193.186.4.227</endAddress>
+        <startAddress>193.186.4.227</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Prisma VPN</description>
@@ -23076,10 +23118,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Appeal__c.RFA_Appeal</recordType>
-        <visible>false</visible>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
+        <personAccountDefault>true</personAccountDefault>
         <recordType>Appeal__c.Set_Aside_Hearing_Appeal</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -23204,6 +23247,16 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Knowledge__kav.FAQ</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Knowledge__kav.Procedure</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <default>false</default>
         <recordType>Person_Relationship__c.Tribal_Contact</recordType>
         <visible>true</visible>
@@ -23270,7 +23323,7 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>Clone_Request__c</tab>
-        <visibility>Hidden</visibility>
+        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Family_Well_Being_Plan_Update_Page</tab>
@@ -23282,7 +23335,7 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>Items_to_Approve</tab>
-        <visibility>Hidden</visibility>
+        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>New_Plan_Person</tab>
@@ -23331,10 +23384,6 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
-        <name>AllowObjectDetectionTraining</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
         <name>AllowUniversalSearch</name>
     </userPermissions>
     <userPermissions>
@@ -23380,6 +23429,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>AssignTopics</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>AssignUserToSkill</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -23727,6 +23780,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ManageDataMaskPolicies</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ManageDevSandboxes</name>
     </userPermissions>
     <userPermissions>
@@ -23911,10 +23968,6 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
-        <name>ModifyAllPolicyCenterPolicies</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
         <name>ModifyDataClassification</name>
     </userPermissions>
     <userPermissions>
@@ -23992,10 +24045,6 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>SendCustomNotifications</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>SendExternalEmailAvailable</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -24088,10 +24137,6 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ViewAllForecasts</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ViewAllPolicyCenterPolicies</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

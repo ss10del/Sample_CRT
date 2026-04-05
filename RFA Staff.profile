@@ -306,6 +306,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CARES_AdopPlaceAD42RHandlerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CARES_AdoptHomeStudyTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -943,6 +947,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CARES_AttendeeSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CARES_AttendeesTriggerHandlerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -11159,7 +11167,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__AccessTokenControllerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__ActiveIntegrationProcedureDynPicklist</apexClass>
@@ -11203,7 +11211,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__AutoCustomLabelReferenceTestResources</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__BaseDisplayController</apexClass>
@@ -11527,7 +11535,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DefaultGenGlobalKeyVersionTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DefaultGenerateGlobalKeyImplementation</apexClass>
@@ -11623,7 +11631,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocGenIndPermUtilTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocGenInvokeService</apexClass>
@@ -11687,7 +11695,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocgenOpenInterfaceSharingWrapperTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocgenPermSetMethods</apexClass>
@@ -11755,7 +11763,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocumentTemplateSection</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__DocumentTemplateSectionModel</apexClass>
@@ -11827,7 +11835,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardCompilerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardController</apexClass>
@@ -11839,11 +11847,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardControllerWithoutSharing</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardControllerWithoutSharingTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FlexCardException</apexClass>
@@ -11871,7 +11879,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FormulaParserService</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__FormulaParserTest</apexClass>
@@ -11911,7 +11919,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__ImageBlobGeneratorMock</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__IntegrationProcedureDataSourceProvider</apexClass>
@@ -12007,11 +12015,11 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__LegalBannerController</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__LegalBannerControllerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__Logger</apexClass>
@@ -12083,7 +12091,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__ObjectDocumentCreationDocxCntrlTokenTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>omnistudio__ObjectDocumentCreationDocxController</apexClass>
@@ -14563,6 +14571,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Operated_By__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.OperatingHoursId</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -17816,9 +17829,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Document_Template_Generation__c.Object_Record_Type_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -21572,6 +21585,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Reports__c.Report_ID__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Reports__c.Report_Name__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -22179,11 +22197,34 @@
     </flowAccesses>
     <layoutAssignments>
         <layout>Account-Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Adoption_Agency</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Alternative_Care_Setting</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
         <recordType>Account.Congregate_Care</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Account Layout</layout>
+        <recordType>Account.County</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
         <recordType>Account.County_Superior_Court</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Default</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Education_Provider</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Account Layout</layout>
@@ -22192,6 +22233,22 @@
     <layoutAssignments>
         <layout>Account-Account Layout</layout>
         <recordType>Account.Foster_Family_Certified_Resource_Family_Home</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Group_Home_Organization</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Independent_Living</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Law_Enforcement_Agency</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Office_of_District_Attorney</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Account Layout</layout>
@@ -22204,6 +22261,22 @@
     <layoutAssignments>
         <layout>Account-Account Layout</layout>
         <recordType>Account.Resource_Family_Home</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Service_Provider</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Temporary_Emergency_Placement</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Tribe</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.User_Account</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Clone_Request__c-Clone Request Layout</layout>
@@ -22276,10 +22349,6 @@
         <startAddress>3.132.221.241</startAddress>
     </loginIpRanges>
     <loginIpRanges>
-        <endAddress>3.216.108.92</endAddress>
-        <startAddress>3.216.108.92</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
         <endAddress>3.235.123.128</endAddress>
         <startAddress>3.235.123.128</startAddress>
     </loginIpRanges>
@@ -22306,10 +22375,6 @@
     <loginIpRanges>
         <endAddress>18.189.224.170</endAddress>
         <startAddress>18.189.224.170</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <endAddress>18.205.140.131</endAddress>
-        <startAddress>18.205.140.131</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <endAddress>18.217.239.6</endAddress>
@@ -22387,6 +22452,11 @@
         <startAddress>44.234.37.128</startAddress>
     </loginIpRanges>
     <loginIpRanges>
+        <description>DAST IP</description>
+        <endAddress>44.237.79.121</endAddress>
+        <startAddress>44.237.79.121</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
         <endAddress>44.238.82.114</endAddress>
         <startAddress>44.238.82.114</startAddress>
     </loginIpRanges>
@@ -22403,10 +22473,6 @@
         <startAddress>52.5.19.254</startAddress>
     </loginIpRanges>
     <loginIpRanges>
-        <endAddress>52.7.118.168</endAddress>
-        <startAddress>52.7.118.168</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
         <endAddress>52.13.8.97</endAddress>
         <startAddress>52.13.8.97</startAddress>
     </loginIpRanges>
@@ -22419,20 +22485,12 @@
         <startAddress>52.33.92.149</startAddress>
     </loginIpRanges>
     <loginIpRanges>
-        <endAddress>52.202.213.108</endAddress>
-        <startAddress>52.202.213.108</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
         <endAddress>52.223.16.248</endAddress>
         <startAddress>52.223.16.248</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <endAddress>52.223.57.221</endAddress>
         <startAddress>52.223.57.221</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <endAddress>54.87.94.84</endAddress>
-        <startAddress>54.87.94.84</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <endAddress>54.146.187.68</endAddress>
@@ -22461,10 +22519,6 @@
         <startAddress>75.2.118.255</startAddress>
     </loginIpRanges>
     <loginIpRanges>
-        <endAddress>75.101.241.39</endAddress>
-        <startAddress>75.101.241.39</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
         <endAddress>76.223.15.44</endAddress>
         <startAddress>76.223.15.44</startAddress>
     </loginIpRanges>
@@ -22483,6 +22537,16 @@
     <loginIpRanges>
         <endAddress>99.83.241.53</endAddress>
         <startAddress>99.83.241.53</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Citrix</description>
+        <endAddress>100.97.3.25</endAddress>
+        <startAddress>100.97.3.25</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Citrix</description>
+        <endAddress>100.97.3.26</endAddress>
+        <startAddress>100.97.3.26</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Prisma</description>
@@ -22538,6 +22602,10 @@
         <description>Orange</description>
         <endAddress>165.225.242.0</endAddress>
         <startAddress>165.225.242.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <endAddress>165.235.199.48</endAddress>
+        <startAddress>165.235.199.48</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Global Protect</description>
@@ -22956,6 +23024,16 @@
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Knowledge__kav.FAQ</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Knowledge__kav.Procedure</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <default>false</default>
         <recordType>Person_Relationship__c.Tribal_Contact</recordType>
         <visible>false</visible>
@@ -23063,6 +23141,10 @@
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <enabled>true</enabled>
+        <name>AccessOrchestrationObjects</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ActivitiesAccess</name>
     </userPermissions>
     <userPermissions>
@@ -23107,6 +23189,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>CreateCustomizeReports</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>CreateTopics</name>
     </userPermissions>
     <userPermissions>
@@ -23131,6 +23217,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>EmailMass</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>EmailSingle</name>
     </userPermissions>
     <userPermissions>
@@ -23143,6 +23233,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ImportPersonal</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>IsSsoEnabled</name>
     </userPermissions>
     <userPermissions>
@@ -23152,6 +23246,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>LightningExperienceUser</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ListEmailSend</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -23195,6 +23293,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>TransactionalEmailSend</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>UseWebLink</name>
     </userPermissions>
     <userPermissions>
@@ -23207,7 +23309,15 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ViewPublicCapstoneFolders</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ViewRoles</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewSetup</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
