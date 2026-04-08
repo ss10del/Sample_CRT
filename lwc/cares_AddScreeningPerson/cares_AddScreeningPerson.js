@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+
 const NUM_0 = 0;
 const NUM_10 = 10;
 const NUM_2 = 2;
@@ -172,7 +172,7 @@ logger = getLogger();
         'align',
         'clean',
         'table',
-        'header',
+        'header'
     ];
 
     @track richTextCount;//CARESV1-3588
