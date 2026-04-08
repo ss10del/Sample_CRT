@@ -167,3 +167,68 @@ jobs:
             } else {
               console.log("✅ Bypass granted by authorized user.");
             }
+      - name: Enforce Approval Rules
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const bypassConfig = JSON.parse(
+              fs.readFileSync('.github/code-analyzer-config/bypass-users.json', 'utf8')
+            );
+
+            const allowedUsers = bypassConfig.users || [];
+
+            // Get workflow runs for this PR
+            const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              event: "pull_request",
+              per_page: 5
+            });
+
+            // Find latest run for this PR
+            const prNumber = context.payload.pull_request.number;
+
+            const run = runs.workflow_runs.find(r => 
+            r.pull_requests.some(pr => pr.number === prNumber)
+            );
+
+            const status = run?.conclusion;
+
+            console.log("Latest workflow status:", status);
+
+            // If workflow passed → allow everything
+            if (status === "success") {
+              console.log("✅ Workflow passed → anyone can approve.");
+              return;
+            }
+
+            // If workflow failed → restrict approvals
+            console.log("❌ Workflow failed → restricting approvals.");
+
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+
+            for (const review of reviews) {
+              if (review.state === "APPROVED") {
+                const user = review.user.login;
+
+                if (!allowedUsers.includes(user)) {
+                  console.log(`❌ Removing approval from ${user}`);
+
+                  await github.rest.pulls.dismissReview({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: prNumber,
+                    review_id: review.id,
+                    message: "❌ Approval not allowed when violations exist. Only bypass users can approve."
+                  });
+                } else {
+                  console.log(`✅ Valid approval from bypass user: ${user}`);
+                }
+              }
+            }
