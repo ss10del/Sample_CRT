@@ -1,5 +1,5 @@
 # Description: Script for PR Validation
-name: CARES301 Salesforce Code Analayzer
+name: Automated Salesforce Code Analayzer
 
 on:
   pull_request:
@@ -22,10 +22,10 @@ jobs:
         run: |
           set -euo pipefail
 
-          git fetch origin CARES301
+          git fetch origin main
 
           # Extract changed files between the PR branch and target branch
-          CHANGED="$(git diff --name-only --diff-filter=d origin/CARES301...HEAD)"
+          CHANGED="$(git diff --name-only --diff-filter=d origin/main...HEAD)"
 
           # Keep only:
           # - any .cls under a /classes/ folder
