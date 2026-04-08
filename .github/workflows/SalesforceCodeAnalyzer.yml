@@ -106,7 +106,34 @@ jobs:
 
           df = pd.read_csv(csv_file, engine='python')
 
-          df.columns = ["Rule", "Engine", "Severity", "Tags", "File", "Line", "Message"]
+          print("Columns in CSV:", df.columns.tolist())
+
+          # Normalize column names (safe handling)
+          df.columns = [col.strip() for col in df.columns]
+
+          # Map required fields dynamically
+          rule_col = next((c for c in df.columns if 'rule' in c.lower()), None)
+          engine_col = next((c for c in df.columns if 'engine' in c.lower()), None)
+          severity_col = next((c for c in df.columns if 'severity' in c.lower()), None)
+          file_col = next((c for c in df.columns if 'file' in c.lower()), None)
+          message_col = next((c for c in df.columns if 'message' in c.lower() or 'description' in c.lower()), None)
+
+          # Rename safely
+          df = df.rename(columns={
+              rule_col: "Rule",
+              engine_col: "Engine",
+              severity_col: "Severity",
+              file_col: "File",
+              message_col: "Message"
+          })
+          # Validate required columns
+          required_cols = ["Rule", "Severity", "File", "Message"]
+
+          missing = [c for c in required_cols if c not in df.columns]
+
+          if missing:
+              print(f"❌ Missing required columns: {missing}")
+              sys.exit(1)
 
           df["Severity"] = pd.to_numeric(df["Severity"], errors="coerce")
 
