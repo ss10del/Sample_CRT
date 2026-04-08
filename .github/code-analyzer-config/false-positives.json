@@ -2,6 +2,7 @@
   "entries": [
     {
       "rule": "ApexCRUDViolation",
+      "file": "ApexClass.cls",
       "messageContains": "Missing CRUD check"
     },
     {
