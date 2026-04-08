@@ -1,6 +1,10 @@
 # Description: Script for PR Validation
 name: Automated Salesforce Code Analyzer
 
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   pull_request:
     branches:
@@ -197,13 +201,29 @@ jobs:
             r.pull_requests.some(pr => pr.number === prNumber)
             );
 
-            const status = run?.conclusion;
+            const status = "${{ job.status }}";
 
-            console.log("Latest workflow status:", status);
+            if (status === "in_progress") {
+              console.log("⏳ Workflow running → removing all approvals");
 
-            // If workflow passed → allow everything
-            if (status === "success") {
-              console.log("✅ Workflow passed → anyone can approve.");
+              const { data: reviews } = await github.rest.pulls.listReviews({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number
+              });
+
+              for (const review of reviews) {
+                if (review.state === "APPROVED") {
+                  await github.rest.pulls.dismissReview({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: context.payload.pull_request.number,
+                    review_id: review.id,
+                    message: "⏳ Approval removed while checks are running. Please re-approve after completion."
+                  });
+                }
+              }
+
               return;
             }
 
