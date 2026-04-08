@@ -1,0 +1,152 @@
+name: SCA PMD Fix (JS)
+
+on:
+  workflow_run:
+    workflows: ["Comments Verification"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+jobs:
+  sca-pmd-fix:
+    # Only run if the triggering workflow succeeded and was not triggered by the bot itself
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.actor.login != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+          fetch-depth: 500
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # -----------------------------------------------------------------------
+      # Detect changed files that match the target extensions.
+      # To add more extensions in the future, just append to EXTENSIONS below
+      # and add the matching glob to the grep pattern on the FILTERED line.
+      # -----------------------------------------------------------------------
+      - name: Detect relevant JS changes
+        id: detect
+        run: |
+          echo "Detecting changed files..."
+
+          CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "")
+
+          echo "All changed files:"
+          echo "$CHANGED"
+
+          # ── EXTENSION LIST ── add new extensions here as needed ─────────────
+          EXTENSIONS='\.(js)$'
+          # e.g. to also include .ts and .jsx in future:
+          # EXTENSIONS='\.(js|ts|jsx)$'
+          # ─────────────────────────────────────────────────────────────────────
+
+          FILTERED=$(echo "$CHANGED" | grep -E "$EXTENSIONS" || true)
+
+          echo "Relevant changed files:"
+          echo "$FILTERED"
+
+          if [ -n "$FILTERED" ]; then
+            echo "runJar=true" >> $GITHUB_OUTPUT
+          else
+            echo "runJar=false" >> $GITHUB_OUTPUT
+            echo "No matching files changed — skipping JAR run."
+          fi
+
+      - name: Detect source folder
+        id: detect_folder
+        if: steps.detect.outputs.runJar == 'true'
+        run: |
+          if [ -d "force-app" ]; then
+            echo "folder=force-app" >> $GITHUB_OUTPUT
+          else
+            echo "folder=." >> $GITHUB_OUTPUT
+          fi
+
+      - name: Validate JAR exists
+        if: steps.detect.outputs.runJar == 'true'
+        run: |
+          JAR="scripts/SCAPipeLineRunner-1_0.jar"
+          if [ ! -f "$JAR" ]; then
+            echo "ERROR: JAR not found at $JAR"
+            echo "Please ensure SCAPipeLineRunner-1_0.jar is committed under the scripts/ directory."
+            exit 1
+          fi
+          echo "JAR found: $JAR"
+
+      - name: Run SCA PMD JAR
+        if: steps.detect.outputs.runJar == 'true'
+        run: |
+          TARGET="${{ steps.detect_folder.outputs.folder }}"
+
+          echo "Running SCA PMD JAR on: $TARGET"
+
+          if [ ! -d "$TARGET" ]; then
+            echo "ERROR: Target folder not found -> $TARGET"
+            exit 1
+          fi
+
+          rm -rf jar-output
+          mkdir -p jar-output
+
+          java -jar scripts/SCAPipeLineRunner-1_0.jar \
+            -p "$TARGET" \
+            --updatedOut jar-output \
+            --report jar-output/PipelineFindingReport.txt
+
+          echo "JAR execution complete."
+
+          # Surface the findings report in the workflow log for visibility
+          if [ -f "jar-output/PipelineFindingReport.txt" ]; then
+            echo ""
+            echo "========== SCA PMD Findings Report =========="
+            cat jar-output/PipelineFindingReport.txt
+            echo "============================================="
+          else
+            echo "WARNING: Report file was not generated."
+          fi
+
+      - name: Replace files with JAR output
+        if: steps.detect.outputs.runJar == 'true'
+        run: |
+          TARGET="${{ steps.detect_folder.outputs.folder }}"
+
+          echo "Applying JAR-fixed files back to: $TARGET"
+
+          # Exclude the report file — it is not a source file
+          rsync -av --exclude='PipelineFindingReport.txt' jar-output/ "$TARGET/"
+
+      - name: Commit changes
+        if: steps.detect.outputs.runJar == 'true'
+        run: |
+          git config user.name "ss102025"
+          git config user.email "sanjay.s@Otsi.ca.gov"
+
+          git add -u
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit — source files were already clean."
+          else
+            git commit -m "SCA PMD Fix Correction"
+
+            BRANCH="${{ github.event.workflow_run.head_branch }}"
+            echo "Pushing to branch: $BRANCH"
+
+            git push origin HEAD:"$BRANCH"
+          fi
+
+      - name: Cleanup output folder
+        if: always()
+        run: |
+          rm -rf jar-output
