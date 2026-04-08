@@ -13,8 +13,8 @@ const NUM_30 = 30;
 const NUM_1 = 1;
 /**
 * Name: Cares_ParentScreeningComponent.js
-Gemini
-SiDeKiCk
+
+
 * Module: Intake
 * Type: LWC Component's JS controller
 * Description: This LWC component is created to show confirmation message.
