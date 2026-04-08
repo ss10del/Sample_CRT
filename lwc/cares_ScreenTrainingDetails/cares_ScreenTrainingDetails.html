@@ -1,0 +1,784 @@
+<!--
+    cares_ScreenTrainingDetails
+        * 04/03/2026 Modified with automation to include display only in comboboxes where it is missing asunilbobade
+-->
+
+	<template>
+	<template if:true={iscares_ScreenTrainingDetails}>
+	<template if:true={loadPage}>
+	<div class="slds-theme_default slds-m-bottom--medium slds-is-relative kreatorStyleClass cares_ScreenTrainingDetails"  role="main">
+		<c-kreator-spinner alternative-text="Loading" size="large" is-spinner={isSpinner} ></c-kreator-spinner>
+		<c-kreator-notification></c-kreator-notification>
+	<div class="slds-grid slds-wrap slds-align_absolute-center ">
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " >
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " >
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 form-required-info" >
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_4-of-12 slds-small-size--1-of-1 slds-x-small-size--1-of-1 slds-medium-size_4-of-12  form-elements-container OutputText_FirstValueParent">							
+
+		<c-kreator-output-text
+			value="Fields marked with"
+        	type="text"
+			class-name="OutputText_FirstValue form-required-info-start"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+    </div>
+    <div class="slds-large-size_4-of-12 slds-small-size--1-of-1 slds-x-small-size--1-of-1 slds-medium-size_4-of-12  form-elements-container OutputText_SecondValueParent">							
+
+		<c-kreator-output-text
+			value="*"
+        	type="text"
+			class-name="OutputText_SecondValue form-required-info-middle"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+    </div>
+    <div class="slds-large-size_4-of-12 slds-small-size--1-of-1 slds-x-small-size--1-of-1 slds-medium-size_4-of-12  form-elements-container OutputText_ThirdValueParent">							
+
+		<c-kreator-output-text
+			value="are mandatory."
+        	type="text"
+			class-name="OutputText_ThirdValue form-required-info-end"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+    </div>
+
+	</div> 
+	</div>
+	</div>
+
+	</div>
+
+	</div>
+
+	<div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-col">
+		<c-kreator-accordion-group 
+			data-kreator-groupid="293360" 
+			group-class="slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " 
+			open-section={cares_TrainingDetailsaccordionGroup0OpenSecs} >
+	<span slot="accordionheader">
+	</span>	 
+		<c-kreator-accordion-section  section-class="" name="accordionsection01carestrainingdetailsaccordiongroup0" >
+	<span slot = "header">
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_8-of-12 slds-small-size--1-of-1 slds-medium-size_8-of-12  OutputTextsectionTrainingDetails0Parent">							
+
+    <h2>
+		<c-kreator-output-text
+			value="Training Details"
+        	type="text"
+			class-name="OutputTextsectionTrainingDetails0 subHeading slds-text-body_regular"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+	</h2>
+    </div>
+	<div 
+		data-kreator-open-state-icon 
+		class="slds-large-size_2-of-12 slds-small-size--1-of-1 slds-medium-size_2-of-12  LinkExpandsectionTrainingDetails10Parent kreatorAccordionIcon">
+
+    	<c-kreator-lightning-icon
+			icon-name="utility:chevrondown"
+			size="x-small"
+			variant=""
+    		class-name="LinkExpandsectionTrainingDetails10"
+			alternative-text=""
+			title=""
+			data-kreator-clickable
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-lightning-icon>
+
+    </div>
+    <div 
+		data-kreator-close-state-icon 
+		class="slds-large-size_2-of-12 slds-small-size--1-of-1 slds-medium-size_2-of-12  LinkCollapsesectionTrainingDetails20Parent kreatorAccordionIcon">
+
+    	<c-kreator-lightning-icon
+			icon-name="utility:chevronright"
+			size="x-small"
+			variant=""
+    		class-name="LinkCollapsesectionTrainingDetails20"
+			alternative-text=""
+			title=""
+			data-kreator-clickable
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-lightning-icon>
+
+    </div>
+
+	</div> 
+	</div>
+	</div>
+	</span>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Name_of_Training__c0Parent">							
+		<c-kreator-input-text
+			parent-name="Name_of_Training__c"
+			helptext=""
+			data-lwc-id="Training_Attendance__c|Name_of_Training__c"
+			text-placeholder=""	
+	        maxlength="255"
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			parent-value={dataObject.trainingattendance.Name_of_Training__c}
+			text-label="Name of Training"
+			text-value={dataObject.trainingattendance.Name_of_Training__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Name_of_Training__c0Required}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+	    	class-name="TrainingDetails_Name_of_Training__c0"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-text>
+
+
+    </div>
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Training_Type__c1Parent">							
+		<c-kreator-input-selection-picklist
+			parent-name="Training_Type__c"
+			data-lwc-id="Training_Attendance__c|Training_Type__c"
+			parent-value={dataObject.trainingattendance.Training_Type__c}
+			helptext=""
+			placeholder=""
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+            is-default-option-present="true"
+			label="Category"
+			value={dataObject.trainingattendance.Training_Type__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Training_Type__c1Required}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+			combobox-list-json={pickListInfo.TrainingDetails_Training_Type__c1}
+	    	class-name="TrainingDetails_Training_Type__c1 kreatorPicklist"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-selection-picklist>
+		
+
+    </div>
+
+    <template if:false={dataObject.trainingattendance.isHiddenRule.isTrainingDetails_Other_Training_Category_Narrative__c2Hidden}>
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Other_Training_Category_Narrative__c2Parent">							
+		<c-kreator-input-text
+			parent-name="Other_Training_Category_Narrative__c"
+			helptext=""
+			data-lwc-id="Training_Attendance__c|Other_Training_Category_Narrative__c"
+			text-placeholder=""	
+			max-length="5000"
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			parent-value={dataObject.trainingattendance.Other_Training_Category_Narrative__c}
+			text-label="Other Training Category Narrative"
+			text-value={dataObject.trainingattendance.Other_Training_Category_Narrative__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Other_Training_Category_Narrative__c2Required}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+	    	class-name="TrainingDetails_Other_Training_Category_Narrative__c2"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-text>
+
+
+    </div>
+	</template>
+	<div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12">
+	</div>
+
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container CompletedDateParent">							
+
+		<c-kreator-input-date
+			label="Completed Date"
+			parent-name="Completed_Date__c"
+			data-lwc-id="Training_Attendance__c|Completed_Date__c"
+			parent-value={dataObject.trainingattendance.Completed_Date__c}
+			helptext=""
+			placeholder=""
+			value={dataObject.trainingattendance.Completed_Date__c}
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			date-style="short"
+        	is-required={dataObject.trainingattendance.isRequiredRule.isCompletedDateRequired}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+	    	class-name="CompletedDate"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-date>
+
+    </div>
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container Date1Parent">							
+
+		<c-kreator-input-date
+			label="Scheduled Date"
+			parent-name="Scheduled_Date__c"
+			data-lwc-id="Training_Attendance__c|Scheduled_Date__c"
+			parent-value={dataObject.trainingattendance.Scheduled_Date__c}
+			helptext=""
+			placeholder=""
+			value={dataObject.trainingattendance.Scheduled_Date__c}
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			date-style="short"
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+	    	class-name="Date1"
+			display-only={pageLevelReadOnly}
+			version="16"
+		>
+		</c-kreator-input-date>
+
+    </div>
+
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Hours_Attended__c6Parent">							
+
+		<c-kreator-input-number
+			label="Hours Completed"
+			parent-name="Hours_Attended__c"
+			data-lwc-id="Training_Attendance__c|Hours_Attended__c"
+			parent-value={dataObject.trainingattendance.Hours_Attended__c}
+			helptext=""
+			value={dataObject.trainingattendance.Hours_Attended__c}
+			placeholder=""
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+    		is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Hours_Attended__c6Required}
+			data-kreator-is-required
+        	class-name="TrainingDetails_Hours_Attended__c6"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-number>
+
+    </div>
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Training_Attendance_Description__c7Parent">							
+		<c-kreator-input-text
+			parent-name="Training_Attendance_Description__c"
+			helptext=""
+			data-lwc-id="Training_Attendance__c|Training_Attendance_Description__c"
+			text-placeholder=""	
+	        maxlength="32768"
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			parent-value={dataObject.trainingattendance.Training_Attendance_Description__c}
+			text-label="Training Description"
+			text-value={dataObject.trainingattendance.Training_Attendance_Description__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Training_Attendance_Description__c7Required}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+	    	class-name="TrainingDetails_Training_Attendance_Description__c7"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-text>
+
+
+    </div>
+
+    <template if:false={dataObject.trainingattendance.isHiddenRule.isGrid121Hidden}>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-medium-size_12-of-12  form-elements-container TrainingDetails_Training_due_to_CAP__c8Parent">							
+		<c-kreator-input-selection-picklist
+			parent-name="Training_due_to_CAP__c"
+			data-lwc-id="Training_Attendance__c|Training_due_to_CAP__c"
+			parent-value={dataObject.trainingattendance.Training_due_to_CAP__c}
+			helptext=""
+			placeholder=""
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+            is-default-option-present="true"
+			label="Training due to CAP?"
+			value={dataObject.trainingattendance.Training_due_to_CAP__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Training_due_to_CAP__c8Required}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+			combobox-list-json={pickListInfo.TrainingDetails_Training_due_to_CAP__c8}
+	    	class-name="TrainingDetails_Training_due_to_CAP__c8 kreatorPicklist"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-selection-picklist>
+		
+
+    </div>
+
+	</div> 
+	</div>
+	</div>
+    </template>
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Training_Provider__c9Parent">							
+		<c-kreator-input-selection-picklist
+			parent-name="Training_Provider__c"
+			data-lwc-id="Training_Attendance__c|Training_Provider__c"
+			parent-value={dataObject.trainingattendance.Training_Provider__c}
+			helptext=""
+			placeholder=""
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+            is-default-option-present="true"
+			label="Training Provider"
+			value={dataObject.trainingattendance.Training_Provider__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Training_Provider__c9Required}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+			combobox-list-json={pickListInfo.TrainingDetails_Training_Provider__c9}
+	    	class-name="TrainingDetails_Training_Provider__c9 kreatorPicklist"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-selection-picklist>
+		
+
+    </div>
+
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Specialized_Training__c10Parent">							
+		<c-kreator-input-selection-picklist
+			parent-name="Specialized_Training__c"
+			data-lwc-id="Training_Attendance__c|Specialized_Training__c"
+			parent-value={dataObject.trainingattendance.Specialized_Training__c}
+			helptext=""
+			placeholder=""
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+            is-default-option-present="true"
+			label="Specialized Training"
+			value={dataObject.trainingattendance.Specialized_Training__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Specialized_Training__c10Required}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+			combobox-list-json={pickListInfo.TrainingDetails_Specialized_Training__c10}
+	    	class-name="TrainingDetails_Specialized_Training__c10 kreatorPicklist"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-selection-picklist>
+		
+
+    </div>
+    <template if:false={dataObject.trainingattendance.isHiddenRule.isGrid122Hidden}>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-medium-size_12-of-12  form-elements-container TrainingDetails_Other_Training_Provider_Narrative__c11Parent">							
+		<c-kreator-input-text
+			parent-name="Other_Training_Provider_Narrative__c"
+			helptext=""
+			data-lwc-id="Training_Attendance__c|Other_Training_Provider_Narrative__c"
+			text-placeholder=""	
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			parent-value={dataObject.trainingattendance.Other_Training_Provider_Narrative__c}
+			text-label="Other Training Provider Narrative"
+			text-value={dataObject.trainingattendance.Other_Training_Provider_Narrative__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Other_Training_Provider_Narrative__c11Required}
+			data-kreator-is-required
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+	    	class-name="TrainingDetails_Other_Training_Provider_Narrative__c11"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-text>
+
+
+    </div>
+
+	</div> 
+	</div>
+	</div>
+    </template>
+
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Status__c12Parent">							
+		<c-kreator-input-selection-picklist
+			parent-name="Status__c"
+			data-lwc-id="Training_Attendance__c|Status__c"
+			parent-value={dataObject.trainingattendance.Status__c}
+			helptext=""
+			placeholder=""
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+            is-default-option-present="true"
+			label="Training Status"
+			value={dataObject.trainingattendance.Status__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Status__c12Required}
+			data-kreator-is-required
+        	is-disabled={dataObject.trainingattendance.isDisabledRule.isTrainingDetails_Status__c12Disabled}
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+			combobox-list-json={pickListInfo.TrainingDetails_Status__c12}
+	    	class-name="TrainingDetails_Status__c12 kreatorPicklist"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-selection-picklist>
+		
+
+    </div>
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container TrainingDetails_Pre_Post_Approval_training__c13Parent">							
+		<c-kreator-input-selection-picklist
+			parent-name="Pre_Post_Approval_Training__c"
+			data-lwc-id="Training_Attendance__c|Pre_Post_Approval_Training__c"
+			parent-value={dataObject.trainingattendance.Pre_Post_Approval_Training__c}
+			helptext=""
+			placeholder=""
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+            is-default-option-present="true"
+			label="Pre/Post Approval Training"
+			value={dataObject.trainingattendance.Pre_Post_Approval_Training__c}
+        	is-required={dataObject.trainingattendance.isRequiredRule.isTrainingDetails_Pre_Post_Approval_training__c13Required}
+			data-kreator-is-required
+        	is-disabled={dataObject.trainingattendance.isDisabledRule.isTrainingDetails_Pre_Post_Approval_training__c13Disabled}
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+			combobox-list-json={pickListInfo.TrainingDetails_Pre_Post_Approval_training__c13}
+	    	class-name="TrainingDetails_Pre_Post_Approval_training__c13 kreatorPicklist"
+			display-only={pageLevelReadOnly}
+			version="15.3"
+		>
+		</c-kreator-input-selection-picklist>
+		
+
+    </div>
+
+    <template if:false={dataObject.trainingattendance.isHiddenRule.isGrid11Hidden}>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-medium-size_12-of-12  form-elements-container SelectParticipantComboBoxParent">							
+
+
+		<c-cares_-generic-custom-combobox
+			data-lwc-id="Training_Attendance__c|RFH_Participant__c"
+			disabled={DisableSelectParticipant} 
+			display-as-picklist="true" 
+			field-value={dataObject.trainingattendance.RFH_Participant__c} 
+			label="Select Participant" 
+			scroll-after-n-items="5" 
+			maximum-selections="10" 
+			field-list="['Full_Name_Formula__c']" 
+			is-standard-picklist-field="false" 
+			required="true" 
+			lookup-object="RFH_Participant__c" 
+			search-filter={RFHParticipantFilter} 
+			data-kreator-imported-comp-id="SelectParticipantComboBox"
+			oncomboboxselection={handleImportedComponentEvt}
+		 display-only={pageLevelReadOnly}>						
+		</c-cares_-generic-custom-combobox>
+    </div>
+
+	</div> 
+	</div>
+	</div>
+    </template>
+    <template if:false={dataObject.trainingattendance.isHiddenRule.isGrid1Hidden}>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-medium-size_12-of-12  form-elements-container ParticipantComboBoxParent">							
+
+
+		<c-cares_-generic-custom-combobox
+			data-lwc-id="Training_Attendance__c|Application_Related_Person__c"
+			lookup-object="ApplicationRelatedPerson__c" 
+			field-list="['ARP_Name__c']" 
+			display-as-picklist="true" 
+			search-filter={ApplicationParticipantFilter} 
+			scroll-after-n-items="5" 
+			maximum-selections="10" 
+			field-value={dataObject.trainingattendance.Application_Related_Person__c} 
+			is-standard-picklist-field="false" 
+			required="true" 
+			disabled={DisableParticipant} 
+			label="Participant" 
+			data-kreator-imported-comp-id="ParticipantComboBox"
+			oncomboboxselection={handleImportedComponentEvt}
+		 display-only={pageLevelReadOnly}>						
+		</c-cares_-generic-custom-combobox>
+    </div>
+
+	</div> 
+	</div>
+	</div>
+    </template>
+
+	</div> 
+	</div>
+	</div>
+		</c-kreator-accordion-section>
+				
+		</c-kreator-accordion-group>
+	</div>
+
+	<div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-col">
+		<c-kreator-accordion-group 
+			data-kreator-groupid="293366" 
+			group-class="slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " 
+			open-section={SystemInfoAccordianOpenSecs} allow-multiple-section>
+	<span slot="accordionheader">
+	</span>	 
+		<c-kreator-accordion-section  section-class="" name="accordionsection1systeminfoaccordian" >
+	<span slot = "header">
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_8-of-12 slds-small-size--1-of-1 slds-medium-size_8-of-12  OutputTextsectionSystemInformation1Parent">							
+
+    <h2>
+		<c-kreator-output-text
+			value="System Information"
+        	type="text"
+			class-name="OutputTextsectionSystemInformation1 subHeading slds-text-body_regular"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+	</h2>
+    </div>
+	<div 
+		data-kreator-open-state-icon 
+		class="slds-large-size_2-of-12 slds-small-size--1-of-1 slds-medium-size_2-of-12  LinkExpandsectionSystemInformation11Parent kreatorAccordionIcon">
+
+    	<c-kreator-lightning-icon
+			icon-name="utility:chevrondown"
+			size="x-small"
+			variant=""
+    		class-name="LinkExpandsectionSystemInformation11"
+			alternative-text=""
+			title=""
+			data-kreator-clickable
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-lightning-icon>
+
+    </div>
+    <div 
+		data-kreator-close-state-icon 
+		class="slds-large-size_2-of-12 slds-small-size--1-of-1 slds-medium-size_2-of-12  LinkCollapsesectionSystemInformation21Parent kreatorAccordionIcon">
+
+    	<c-kreator-lightning-icon
+			icon-name="utility:chevronright"
+			size="x-small"
+			variant=""
+    		class-name="LinkCollapsesectionSystemInformation21"
+			alternative-text=""
+			title=""
+			data-kreator-clickable
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-lightning-icon>
+
+    </div>
+
+	</div> 
+	</div>
+	</div>
+	</span>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container SystemInformation_CreatedById0Parent">							
+
+		<c-kreator-input-lookup
+			record-id={dataObject.trainingattendance.Id}
+			object-name="Training_Attendance__c"
+			parent-name="CreatedById"
+			data-lwc-id="Training_Attendance__c|CreatedById"
+			field-name="CreatedById"
+			data-kreator-is-required
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			parent-value={dataObject.trainingattendance.CreatedById}
+			is-read-only={dataObject.trainingattendance.isReadOnlyRule.isSystemInformation_CreatedById0ReadOnly}
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+			label="Created By"
+	    	class-name="SystemInformation_CreatedById0"
+			helptext=""
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-input-lookup>
+
+    </div>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-x-small-size--1-of-1 slds-medium-size_12-of-12  form-elements-container Training_Attendance__c_CreatedDateFirst0Parent">							
+
+		<c-kreator-output-text
+			value="Created Date"
+        	type="text"
+			class-name="Training_Attendance__c_CreatedDateFirst0 slds-text-title"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+    </div>
+
+    <div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-x-small-size--1-of-1 slds-medium-size_12-of-12  form-elements-container Training_Attendance__c_CreatedDateSecond02Parent">							
+
+		<c-kreator-output-text
+			value={dataObject.trainingattendance.CreatedDate}
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+        	type="datetime"
+			year="numeric"
+			month="2-digit"
+			day="2-digit"
+			hour="numeric"
+			minute="2-digit"
+			second="2-digit"
+			hour12="False"
+			class-name="Training_Attendance__c_CreatedDateSecond02 slds-text-title"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+    </div>
+
+	</div> 
+	</div>
+	</div>
+
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container SystemInformation_LastModifiedById2Parent">							
+
+		<c-kreator-input-lookup
+			record-id={dataObject.trainingattendance.Id}
+			object-name="Training_Attendance__c"
+			parent-name="LastModifiedById"
+			data-lwc-id="Training_Attendance__c|LastModifiedById"
+			field-name="LastModifiedById"
+			data-kreator-is-required
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+			parent-value={dataObject.trainingattendance.LastModifiedById}
+			is-read-only={dataObject.trainingattendance.isReadOnlyRule.isSystemInformation_LastModifiedById2ReadOnly}
+			oninputdatachange={handleInputDataChangeEvent}
+			oninputdatablur={handleInputDataBlurEvent}
+			oninputdatasave={handleInputDataSaveEvent}
+			label="Last Modified By"
+	    	class-name="SystemInformation_LastModifiedById2"
+			helptext=""
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-input-lookup>
+
+    </div>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-x-small-size--1-of-1 slds-medium-size_12-of-12  form-elements-container Training_Attendance__c_LastModifiedDateFirst1Parent">							
+
+		<c-kreator-output-text
+			value="Last Modified Date"
+        	type="text"
+			class-name="Training_Attendance__c_LastModifiedDateFirst1 slds-text-title"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+    </div>
+
+    <div class="slds-large-size_12-of-12 slds-small-size--1-of-1 slds-x-small-size--1-of-1 slds-medium-size_12-of-12  form-elements-container Training_Attendance__c_LastModifiedDateSecond12Parent">							
+
+		<c-kreator-output-text
+			value={dataObject.trainingattendance.LastModifiedDate}
+			data-kreator-index-key={dataObject.trainingattendance.uniqueKey}
+        	type="datetime"
+			year="numeric"
+			month="2-digit"
+			day="2-digit"
+			hour="numeric"
+			minute="2-digit"
+			second="2-digit"
+			hour12="False"
+			class-name="Training_Attendance__c_LastModifiedDateSecond12 slds-text-title"
+			display-only={pageLevelReadOnly}
+		>
+		</c-kreator-output-text>
+    </div>
+
+	</div> 
+	</div>
+	</div>
+
+	</div> 
+	</div>
+	</div>
+		</c-kreator-accordion-section>
+				
+		</c-kreator-accordion-group>
+	</div>
+
+    <template if:false={dataObject.trainingattendance.isHiddenRule.isbuttonGroupHidden}>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 cta-group" >
+	<div class="slds-large-size_10-of-12 slds-small-size--1-of-1 slds-medium-size_10-of-12">
+	</div>
+	<div class="slds-grid slds-wrap slds-col slds-small-size--1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 " >
+	<div class="slds-form-element__group slds-form-element_compound  slds-size_12-of-12">
+	<div class="slds-form-element__row slds-wrap">
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container CancelParent">							
+
+		<c-kreator-action-buttons
+			title="Cancel"
+			label="Cancel"
+			variant="neutral"
+            class="slds-float_right"
+			name="Cancel"
+	    	onbuttonclickevent={handleCancel}
+	    	class-name="Cancel  slds-button_neutral"
+			version= 15.3
+		>
+		</c-kreator-action-buttons>
+
+    </div>
+    <div class="slds-large-size_6-of-12 slds-small-size--1-of-1 slds-medium-size_6-of-12  form-elements-container SaveParent">							
+
+		<c-kreator-action-buttons
+			title="Save"
+			label="Save"
+			variant="brand"
+            class="slds-float_right"
+			name="Save"
+        	onbuttonclickevent= {handleCustomActions}
+	    	class-name="Save  slds-button_brand"
+			version= 15.3
+		>
+		</c-kreator-action-buttons>
+
+    </div>
+
+	</div> 
+	</div>
+	</div>
+
+	</div>
+    </template>
+
+	</div>
+	</div>
+
+	</div>
+	</template>
+	</template>
+	</template>
