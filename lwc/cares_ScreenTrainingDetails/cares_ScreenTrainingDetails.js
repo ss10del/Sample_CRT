@@ -1,6 +1,6 @@
 const NUM_0 = 0;
 /*
-    cares_ScreenTrainingDetails
+    cares_ScreenTrainingDetails 
 */
 import { LightningElement, track, api, wire } from 'lwc';
 import { loadStyle } from 'lightning/platformResourceLoader';
