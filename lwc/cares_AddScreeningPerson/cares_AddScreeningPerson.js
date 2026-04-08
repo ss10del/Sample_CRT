@@ -12,7 +12,6 @@ const NUM_500 = 500;
 const NUM_30 = 30;
 const NUM_1 = 1;
 Sidekick
-//Gemini
 /**
 * Name: Cares_ParentScreeningComponent.js
 * Module: Intake
