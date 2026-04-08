@@ -78,68 +78,58 @@ jobs:
           pip3 install pandas openpyxl
 
           python3 << 'EOF'
-import pandas as pd
-import json
-import sys
-import os
+          import pandas as pd
+          import json
+          import sys
+          import os
 
-# Ensure file exists
-if not os.path.exists('sf-scanner-report.csv'):
-    print("No analyzer report found. Exiting.")
-    sys.exit(0)
+          if not os.path.exists('sf-scanner-report.csv'):
+              print("No analyzer report found. Exiting.")
+              sys.exit(0)
 
-# Load CSV safely
-df = pd.read_csv('sf-scanner-report.csv', engine='python')
+          df = pd.read_csv('sf-scanner-report.csv', engine='python')
 
-# Adjust columns (based on your format)
-df.columns = ["Rule", "Engine", "Severity", "Tags", "File", "Line", "Message"]
+          df.columns = ["Rule", "Engine", "Severity", "Tags", "File", "Line", "Message"]
 
-# Convert severity to numeric
-df["Severity"] = pd.to_numeric(df["Severity"], errors="coerce")
+          df["Severity"] = pd.to_numeric(df["Severity"], errors="coerce")
 
-# Filter High (2) & Critical (1)
-df_filtered = df[df["Severity"].isin([1, 2])]
+          df_filtered = df[df["Severity"].isin([1, 2])]
 
-# Load false positives config
-with open('.github/code-analyzer-config/false-positives.json') as f:
-    config = json.load(f)
+          with open('.github/code-analyzer-config/false-positives.json') as f:
+              config = json.load(f)
 
-def is_false_positive(row):
-    for entry in config.get("entries", []):
-        rule_match = row["Rule"] == entry.get("rule")
-        file_match = True if "file" not in entry else entry["file"] in str(row["File"])
-        msg_match = True if "messageContains" not in entry else entry["messageContains"] in str(row["Message"])
+          def is_false_positive(row):
+              for entry in config.get("entries", []):
+                  rule_match = row["Rule"] == entry.get("rule")
+                  file_match = True if "file" not in entry else entry["file"] in str(row["File"])
+                  msg_match = True if "messageContains" not in entry else entry["messageContains"] in str(row["Message"])
 
-        if rule_match and file_match and msg_match:
-            return True
-    return False
+                  if rule_match and file_match and msg_match:
+                      return True
+              return False
 
-# Apply filtering
-if not df_filtered.empty:
-    df_filtered["IsFalsePositive"] = df_filtered.apply(is_false_positive, axis=1)
-else:
-    df_filtered["IsFalsePositive"] = False
+          if not df_filtered.empty:
+              df_filtered["IsFalsePositive"] = df_filtered.apply(is_false_positive, axis=1)
+          else:
+              df_filtered["IsFalsePositive"] = False
 
-# Split
-real_violations = df_filtered[df_filtered["IsFalsePositive"] == False]
-false_violations = df_filtered[df_filtered["IsFalsePositive"] == True]
+          real_violations = df_filtered[df_filtered["IsFalsePositive"] == False]
+          false_violations = df_filtered[df_filtered["IsFalsePositive"] == True]
 
-# Write Excel
-with pd.ExcelWriter("Violation_Report.xlsx") as writer:
-    df.to_excel(writer, sheet_name="All", index=False)
-    df_filtered.to_excel(writer, sheet_name="High_Critical", index=False)
-    real_violations.to_excel(writer, sheet_name="Real_Violations", index=False)
-    false_violations.to_excel(writer, sheet_name="False_Positives", index=False)
+          with pd.ExcelWriter("Violation_Report.xlsx") as writer:
+              df.to_excel(writer, sheet_name="All", index=False)
+              df_filtered.to_excel(writer, sheet_name="High_Critical", index=False)
+              real_violations.to_excel(writer, sheet_name="Real_Violations", index=False)
+              false_violations.to_excel(writer, sheet_name="False_Positives", index=False)
 
-print("Excel report generated.")
+          print("Excel report generated.")
 
-# Fail condition
-if len(real_violations) > 0:
-    print(f"❌ Found {len(real_violations)} real High/Critical violations.")
-    sys.exit(1)
-else:
-    print("✅ Only false positives or no violations found.")
-EOF
+          if len(real_violations) > 0:
+              print(f"❌ Found {len(real_violations)} real High/Critical violations.")
+              sys.exit(1)
+          else:
+              print("✅ Only false positives or no violations found.")
+          EOF
 
       - name: Upload Report
         if: always()
