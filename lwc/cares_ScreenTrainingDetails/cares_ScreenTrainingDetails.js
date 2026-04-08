@@ -7,7 +7,6 @@ import { loadStyle } from 'lightning/platformResourceLoader';
 import kreatorBaseComponentsStyle from '@salesforce/resourceUrl/kreatorBaseComponentsStyle';
 import globalCssResource from '@salesforce/resourceUrl/Theme';
 import { getRecord } from 'lightning/uiRecordApi'
-//Gemini 
 import {populatePageVaraiblesFromUrl,populateObjectNameRecordLstMap,decodeBindVariable,checkAndDisableField} from 'c/kreatorUtilityComponent';
 import {subscribeKreatorMessageChannel, unsubscribeKreatorMessageChannel, publishKreatorMessageChannel,addImportedCompValuesToRecord} from 'c/kreatorGenericUtilityComponents';
 /**** Helper responses Import ****/
