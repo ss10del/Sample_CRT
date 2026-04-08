@@ -60,9 +60,6 @@ jobs:
           echo y | sf plugins install sfdx-git-delta
           git config --global --add safe.directory $GITHUB_WORKSPACE
 
-      - name: Print Files
-        run: echo "Files found: $FILES"
-
       - name: Run Salesforce Code Analyzer
         if: env.SKIP_ANALYZER != 'true'
         uses: forcedotcom/run-code-analyzer@v2
