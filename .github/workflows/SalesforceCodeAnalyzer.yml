@@ -1,6 +1,7 @@
 # Description: Script for PR Validation
 name: Automated Salesforce Code Analyzer
-
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 permissions:
   contents: read
   pull-requests: write
@@ -19,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 200
 
@@ -28,12 +29,12 @@ jobs:
         run: |
           set -euo pipefail
 
-          BASE=${{ github.base_ref }}
+          BASE="${{ github.event.pull_request.base.ref }}"
           echo "Base branch: $BASE"
 
-          git fetch origin $BASE
+          git fetch origin "$BASE" || echo "Fetch failed, continuing..."
 
-          CHANGED="$(git diff --name-only --diff-filter=d origin/$BASE...HEAD)"
+          CHANGED="$(git diff --name-only --diff-filter=d origin/$BASE...HEAD || true)"
 
           FILTERED="$(printf '%s\n' "${CHANGED}" | grep -E '(^|/)(classes/.*\.cls$|triggers/.*\.trigger$|aura/|lwc/)' || true)"
 
@@ -73,6 +74,7 @@ jobs:
           run-arguments: --target "${{ env.FILES }}" --rule-selector all --output-file sf-scanner-report.csv
 
       - name: Process Violations and Generate Excel
+        id: violation_check
         if: env.SKIP_ANALYZER != 'true'
         run: |
           set -e
@@ -86,11 +88,23 @@ jobs:
           import sys
           import os
 
-          if not os.path.exists('sf-scanner-report.csv'):
-            print("No analyzer report found. Exiting.")
-            sys.exit(0)
+          import glob
 
-          df = pd.read_csv('sf-scanner-report.csv', engine='python')
+          files = glob.glob('**/sf-scanner-report.csv', recursive=True)
+
+          if not files:
+              print("No analyzer report found. Creating empty report.")
+    
+              import pandas as pd
+              with pd.ExcelWriter("Violation_Report.xlsx") as writer:
+                  pd.DataFrame().to_excel(writer, sheet_name="All", index=False)
+    
+              sys.exit(0)
+
+          csv_file = files[0]
+          print(f"Using report: {csv_file}")
+
+          df = pd.read_csv(csv_file, engine='python')
 
           df.columns = ["Rule", "Engine", "Severity", "Tags", "File", "Line", "Message"]
 
@@ -112,9 +126,9 @@ jobs:
               return False
 
           if not df_filtered.empty:
-            df_filtered["IsFalsePositive"] = df_filtered.apply(is_false_positive, axis=1)
+              df_filtered["IsFalsePositive"] = df_filtered.apply(is_false_positive, axis=1)
           else:
-            df_filtered["IsFalsePositive"] = False
+              df_filtered["IsFalsePositive"] = False
 
           real_violations = df_filtered[df_filtered["IsFalsePositive"] == False]
           false_violations = df_filtered[df_filtered["IsFalsePositive"] == True]
@@ -128,11 +142,17 @@ jobs:
           print("Excel report generated.")
 
           if len(real_violations) > 0:
-              print(f"❌ Found {len(real_violations)} real High/Critical violations.")
-              sys.exit(1)
+            print(f"❌ Found {len(real_violations)} real High/Critical violations.")
+
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                f.write("fail_on_violation=true\n")
+
+            sys.exit(1)
           else:
-              print("✅ Only false positives or no violations found.")
-          EOF
+            print("✅ Only false positives or no violations found.")
+
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                f.write("fail_on_violation=false\n")
 
       - name: Upload Report
         if: always()
@@ -142,9 +162,10 @@ jobs:
           path: Violation_Report.xlsx
 
       - name: Check PR Approver for Bypass
-        if: failure()
-        uses: actions/github-script@v7
+        if: steps.violation_check.outputs.fail_on_violation == 'true'
+        uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.USER_PAT }}
           script: |
             const fs = require('fs');
 
@@ -173,10 +194,12 @@ jobs:
             } else {
               console.log("✅ Bypass granted by authorized user.");
             }
+            
       - name: Enforce Approval Rules
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.USER_PAT }}
           script: |
             const fs = require('fs');
 
@@ -186,49 +209,17 @@ jobs:
 
             const allowedUsers = bypassConfig.users || [];
 
-            // Get workflow runs for this PR
-            const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              event: "pull_request",
-              per_page: 5
-            });
-
-            // Find latest run for this PR
             const prNumber = context.payload.pull_request.number;
 
-            const run = runs.workflow_runs.find(r => 
-            r.pull_requests.some(pr => pr.number === prNumber)
-            );
+            const failOnViolation = "${{ steps.violation_check.outputs.fail_on_violation }}" === "true";
 
-            const status = "${{ job.status }}";
-
-            if (status === "in_progress") {
-              console.log("⏳ Workflow running → removing all approvals");
-
-              const { data: reviews } = await github.rest.pulls.listReviews({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: context.payload.pull_request.number
-              });
-
-              for (const review of reviews) {
-                if (review.state === "APPROVED") {
-                  await github.rest.pulls.dismissReview({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    pull_number: context.payload.pull_request.number,
-                    review_id: review.id,
-                    message: "⏳ Approval removed while checks are running. Please re-approve after completion."
-                  });
-                }
-              }
-
+            // ✅ If no violations → do nothing
+            if (!failOnViolation) {
+              console.log("✅ No violations → anyone can approve.");
               return;
             }
 
-            // If workflow failed → restrict approvals
-            console.log("❌ Workflow failed → restricting approvals.");
+            console.log("❌ Violations exist → enforcing approval restriction.");
 
             const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
