@@ -77,7 +77,7 @@ jobs:
       - name: Validate JAR exists
         if: steps.detect.outputs.runJar == 'true'
         run: |
-          JAR="scripts/SCAPipeLineRunner-1_0.jar"
+          JAR="scripts/SCAPipeLineRunner-1.0.jar"
           if [ ! -f "$JAR" ]; then
             echo "ERROR: JAR not found at $JAR"
             echo "Please ensure SCAPipeLineRunner-1_0.jar is committed under the scripts/ directory."
