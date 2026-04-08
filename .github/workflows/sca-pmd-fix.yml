@@ -49,7 +49,7 @@ jobs:
           # ── EXTENSION LIST ── add new extensions here as needed ─────────────
           EXTENSIONS='\.(js)$'
           # e.g. to also include .ts and .jsx in future:
-          # EXTENSIONS='\.(js|ts|jsx)$'
+          # EXTENSIONS='\.(js|jsx)$'
           # ─────────────────────────────────────────────────────────────────────
 
           FILTERED=$(echo "$CHANGED" | grep -E "$EXTENSIONS" || true)
