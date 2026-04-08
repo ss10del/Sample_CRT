@@ -1,0 +1,156 @@
+name: Comments Verification
+
+on:
+  workflow_run:
+    workflows: ["Space To Tab Fixer (ApexClass)"]
+    types:
+      - completed
+  push:
+    branches:
+      - "feature/**"
+    paths:
+      - "**/*.js"
+      - "**/*.html"
+      - "**/*.xml"
+      - "**/*.css"
+      - "**/*.json"
+      - "**/*.cmp"
+      - "**/*.txt"
+      - "**/*.trigger"
+      
+permissions:
+  contents: write
+
+jobs:
+  run-jar:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+     
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.ref_name }}
+          fetch-depth: 500
+
+     
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      
+      - name: Detect relevant changes
+        id: detect
+        run: |
+          echo "Detecting changed files..."
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "Push event → using commit range"
+            CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} || echo "")
+          else
+            echo "workflow_run event → checking last commit only"
+            CHANGED=$(git diff --name-only HEAD~1 HEAD || echo "")
+          fi
+
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          FILTERED=$(echo "$CHANGED" | grep -E '\.(cls|js|html|xml|trigger)$' || true)
+
+          if [ -n "$FILTERED" ]; then
+            echo "runJar=true" >> $GITHUB_OUTPUT
+          else
+            echo "runJar=false" >> $GITHUB_OUTPUT
+          fi
+
+          if echo "$FILTERED" | grep '\.cls$' >/dev/null; then
+            echo "hasApex=true" >> $GITHUB_OUTPUT
+          else
+            echo "hasApex=false" >> $GITHUB_OUTPUT
+          fi       
+          
+      - name: Skip push if Apex present
+        id: skip_apex
+        if: github.event_name == 'push'
+        run: |
+          if [ "${{ steps.detect.outputs.hasApex }}" == "true" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "Apex found → will run via workflow_run"
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Detect source folder
+        id: detect_folder
+        run: |
+          if [ -d "force-app" ]; then
+            echo "folder=force-app" >> $GITHUB_OUTPUT
+          else
+            echo "folder=." >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run JAR
+        if: steps.detect.outputs.runJar == 'true' && (github.event_name != 'push' || steps.skip_apex.outputs.skip != 'true')
+        run: |
+          TARGET="${{ steps.detect_folder.outputs.folder }}"
+
+          echo "Running JAR on $TARGET..."
+
+          # Validate inputs
+          if [ ! -d "$TARGET" ]; then
+            echo "ERROR: Folder not found -> $TARGET"
+            exit 1
+          fi
+
+          if [ ! -f "scripts/comment-remover-cli-1.0.0.jar" ]; then
+            echo "ERROR: JAR not found"
+            exit 1
+          fi
+
+          rm -rf jar-output
+          mkdir -p jar-output
+
+          java -jar scripts/comment-remover-cli-1.0.0.jar \
+            -p "$TARGET" \
+            -m "Sidekick" \
+            -m "Codify" \
+            -m "Gemini" \
+            -m "Gemini/AI" \
+            --remove true \
+            --updatedOut jar-output
+
+      - name: Replace files with JAR output
+        if: steps.detect.outputs.runJar == 'true' && (github.event_name != 'push' || steps.skip_apex.outputs.skip != 'true')
+        run: |
+          TARGET="${{ steps.detect_folder.outputs.folder }}"
+
+          echo "Applying JAR output..."
+
+          rsync -av jar-output/ "$TARGET/"
+     
+      - name: Commit changes
+        if: steps.detect.outputs.runJar == 'true' && (github.event_name != 'push' || steps.skip_apex.outputs.skip != 'true')
+        run: |
+          git config user.name "ss102025"
+          git config user.email "sanjay.s@Otsi.ca.gov"
+
+          git add -u
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Comments-Correction JAR processed"
+
+            BRANCH="${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.ref_name }}"
+            echo "Pushing to $BRANCH"
+
+            git push origin HEAD:$BRANCH
+          fi
+      
+      - name: Cleanup output folder
+        if: always()
+        run: |
+          rm -rf jar-output
