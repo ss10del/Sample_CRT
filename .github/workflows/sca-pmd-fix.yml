@@ -77,10 +77,10 @@ jobs:
       - name: Validate JAR exists
         if: steps.detect.outputs.runJar == 'true'
         run: |
-          JAR="scripts/SCAPipeLineRunner-1.0.jar"
+          JAR="scripts/SCAPipeLineRunner-1.0.1.jar"
           if [ ! -f "$JAR" ]; then
             echo "ERROR: JAR not found at $JAR"
-            echo "Please ensure SCAPipeLineRunner-1.0.jar is committed under the scripts/ directory."
+            echo "Please ensure SCAPipeLineRunner-1.0.1.jar is committed under the scripts/ directory."
             exit 1
           fi
           echo "JAR found: $JAR"
@@ -100,7 +100,7 @@ jobs:
           rm -rf jar-output
           mkdir -p jar-output
 
-          java -jar scripts/SCAPipeLineRunner-1.0.jar \
+          java -jar scripts/SCAPipeLineRunner-1.0.1.jar \
             -p "$TARGET" \
             --updatedOut jar-output \
             --report jar-output/PipelineFindingReport.txt
