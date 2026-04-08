@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+
 const NUM_0 = 0;
 const NUM_10 = 10;
 const NUM_2 = 2;
@@ -172,7 +172,7 @@ logger = getLogger();
         'align',
         'clean',
         'table',
-        'header',
+        'header'
     ];
 
     @track richTextCount;//CARESV1-3588
@@ -283,15 +283,15 @@ logger = getLogger();
     ownerIdManagerHandler({ data }) {
         if (data) {
             this.mangerId = getFieldValue(data, OWNER_MANAGER_ID_FIELD)
-            if (this.approvalSupervisor != null) {
-                if (this.ownerId != ID && this.mangerId != ID && this.approvalSupervisor != ID && !this.hasEditAccess) //added hasEditAccess as part of CARESV1-13295
+            if ((this.approvalSupervisor !== null && this.approvalSupervisor !== undefined)) {
+                if (this.ownerId !== ID && this.mangerId !== ID && this.approvalSupervisor !== ID && !this.hasEditAccess) //added hasEditAccess as part of CARESV1-13295
                 {
                     this.disableAll = true;
                     this.setRoleVisibilityTrue();
                     this.disableDelete = true;
                 }
             } else {
-                if (this.ownerId != ID && this.mangerId != ID && !this.hasEditAccess) //added hasEditAccess as part of CARESV1-13295
+                if (this.ownerId !== ID && this.mangerId !== ID && !this.hasEditAccess) //added hasEditAccess as part of CARESV1-13295
                 {
                     this.disableAll = true;
                     this.setRoleVisibilityTrue();
@@ -305,64 +305,64 @@ logger = getLogger();
     wiredRecord({data}) {
 
         if (data) {
-            if (this.mangerId == null) {
+            if ((this.mangerId === null || this.mangerId === undefined)) {
                 this.mangerId = data.fields.Record_Owner_Manager_s_ID__c.value;
             }
             this.approvalStatus = data.fields.Approval_Status__c.value;
             this.approvalSupervisor = data.fields.Approval_Supervisor__c.value;
-            if (this.approvalSupervisor != null) {
-                if (this.ownerId != ID && this.mangerId != ID && this.approvalSupervisor != ID && !this.hasEditAccess) //added hasEditAccess as part of CARESV1-13295
+            if ((this.approvalSupervisor !== null && this.approvalSupervisor !== undefined)) {
+                if (this.ownerId !== ID && this.mangerId !== ID && this.approvalSupervisor !== ID && !this.hasEditAccess) //added hasEditAccess as part of CARESV1-13295
                 {
                     this.disableAll = true;
                     this.setRoleVisibilityTrue();
                     this.disableDelete = true;
                 }
             } else {
-                if (this.ownerId != ID && this.mangerId != ID && !this.hasEditAccess) //added hasEditAccess as part of CARESV1-13295
+                if (this.ownerId !== ID && this.mangerId !== ID && !this.hasEditAccess) //added hasEditAccess as part of CARESV1-13295
                 {
                     this.disableAll = true;
                     this.setRoleVisibilityTrue();
                     this.disableDelete = true;
                 }
             }
-            if (this.ownerId == ID && ID != this.approvalSupervisor)
+            if (this.ownerId === ID && ID !== this.approvalSupervisor)
             { //CARESV1-5172: ID != this.approvalSupervisor
-                if (this.approvalStatus == Pending_Label || this.approvalStatus == Resubmitted_Label) {
+                if (this.approvalStatus === Pending_Label || this.approvalStatus === Resubmitted_Label) {
                     this.disableAll = true;
                     this.setRoleVisibilityTrue();
                     this.disableDelete = true;
-                } else if (this.approvalStatus == Approved_Label) {
-                    this.disableAll = true;
-                    this.setRoleVisibilityTrue();
-                    this.disableDelete = true;
-                }
-            } else if (this.mangerId == ID && this.mangerId != this.approvalSupervisor) {
-                if (this.approvalStatus == Pending_Label || this.approvalStatus == Resubmitted_Label) {
-                    this.disableAll = true;
-                    this.setRoleVisibilityTrue();
-                    this.disableDelete = true;
-                } else if (this.approvalStatus == Approved_Label) {
+                } else if (this.approvalStatus === Approved_Label) {
                     this.disableAll = true;
                     this.setRoleVisibilityTrue();
                     this.disableDelete = true;
                 }
-            } else if (this.approvalSupervisor == ID && this.mangerId != this.approvalSupervisor) {
-                if (this.approvalStatus == Pending_Label || this.approvalStatus == Resubmitted_Label) {
+            } else if (this.mangerId === ID && this.mangerId !== this.approvalSupervisor) {
+                if (this.approvalStatus === Pending_Label || this.approvalStatus === Resubmitted_Label) {
+                    this.disableAll = true;
+                    this.setRoleVisibilityTrue();
+                    this.disableDelete = true;
+                } else if (this.approvalStatus === Approved_Label) {
+                    this.disableAll = true;
+                    this.setRoleVisibilityTrue();
+                    this.disableDelete = true;
+                }
+            } else if (this.approvalSupervisor === ID && this.mangerId !== this.approvalSupervisor) {
+                if (this.approvalStatus === Pending_Label || this.approvalStatus === Resubmitted_Label) {
                     this.disableAll = false;
                     this.setRoleVisibilityFalse();
                     this.disableDelete = false;
-                } else if (this.approvalStatus == Approved_Label) {
+                } else if (this.approvalStatus === Approved_Label) {
                     this.disableAll = true;
                     this.setRoleVisibilityTrue();
                     this.disableDelete = true;
                 }
-            } else if (this.mangerId == this.approvalSupervisor && this.approvalSupervisor == ID) { /* added ==ID for CARESV1-5647 */
-            if (this.approvalStatus == Pending_Label || this.approvalStatus == Resubmitted_Label) {  // added if condition for CARESV1-6514  
+            } else if (this.mangerId === this.approvalSupervisor && this.approvalSupervisor === ID) { /* added ==ID for CARESV1-5647 */
+            if (this.approvalStatus === Pending_Label || this.approvalStatus === Resubmitted_Label) {  // added if condition for CARESV1-6514  
             this.disableAll = false;
                 this.setRoleVisibilityFalse();
                 this.disableDelete = false;
             }
-                else if (this.approvalStatus == Approved_Label) {
+                else if (this.approvalStatus === Approved_Label) {
                     this.disableAll = true;
                     this.setRoleVisibilityTrue();
                     this.disableDelete = true;
@@ -375,7 +375,7 @@ logger = getLogger();
     connectedCallback() {
 
 
-        if (this.recordId != null) {
+        if ((this.recordId !== null && this.recordId !== undefined)) {
             this.isDetailPage = true;
             this.loadScreeningPersons();
             this.loadScreening(); // Loads the screeing record data. CARESV1-653
@@ -405,29 +405,29 @@ logger = getLogger();
             .then(result => {
                 this.deleteInvoked = false;
                 this.disableSave = false;
-                if (result != null) {
+                if ((result !== null && result !== undefined)) {
                     this.personList = [];
                     for (const person of result) {
                         var collateralRole = false;
                         var isDobManual = false;
                         let isValidatedPersonFlag=false;
-                        if (person.Role__c == "Collateral") {
+                        if (person.Role__c === "Collateral") {
                             collateralRole = true; }
-                        if (person.Birthdate__c != null && person.Birthdate__c != '' && person.Birthdate__c != 'undefined') {
+                        if ((person.Birthdate__c !== null && person.Birthdate__c !== undefined) && person.Birthdate__c !== '' && person.Birthdate__c !== 'undefined') {
                             isDobManual = true; }
-                        if (person.Validated_Person_Name__c != null && person.Validated_Person_Name__c != '' && person.Validated_Person_Name__c!= 'undefined') {
+                        if ((person.Validated_Person_Name__c !== null && person.Validated_Person_Name__c !== undefined) && person.Validated_Person_Name__c !== '' && person.Validated_Person_Name__c!== 'undefined') {
                             isValidatedPersonFlag= true; }  
                         /*this.personList.push({
                             id: person.Id, role: person.Role__c, collateralType: person.Collateral_Type__c,
                             lastName: person.Last_Name__c, firstName: person.First_Name__c, unknownCheckbox: person.UnknownPersonCheck__c, dob: person.Birthdate__c, approxage: person.Approximate_Age__c, county: person.CountyNew__c, isCollateral: collateralRole, isNotCollateral: !collateralRole, DobManual: isDobManual, showAutoError: false, disableRole: true, disableCollateral: true
                         });*/
-                      var csecChecks=(person.CSECs__r!=null && person.CSECs__r!='')?true:false;
+                      var csecChecks=((person.CSECs__r !== null && person.CSECs__r !== undefined) && person.CSECs__r!=='')?true:false;
                         this.personList.push({
                             id: person.Id, role: person.Role__c, collateralType: person.Collateral_Type__c,
                             lastName: person.Last_Name__c, firstName: person.First_Name__c, unknownCheckbox: person.UnknownPersonCheck__c, dob: person.Birthdate__c, approxage: person.Approximate_Age__c, county: person.CountyNew__c, isCollateral: collateralRole, isNotCollateral: !collateralRole, DobManual: isDobManual,ValidatedPersonFlag :isValidatedPersonFlag, showAutoError: false, disableRole: true, disableCollateral: true, disableAtRiskCsec: (person.At_risk_of_CSEC__c) ? true : (this.disableAll ? true : false),
-                            atRiskCsecCheckbox: (person.At_risk_of_CSEC__c ==true)?true:false, showCsecCheckbox: person.Role__c=='Alleged Victim' ?true:false, showCsec: person.At_risk_of_CSEC__c, csecId: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].Id : "") : "",
-                            csecType: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].CSEC_Type__c : "") : "", showDate: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? ((person.CSECs__r[NUM_0].CSEC_Type__c != null && person.CSECs__r[NUM_0].CSEC_Type__c != '') ? true : false) : false) : false, startDate: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].Start_Date__c : "") : "", endDate: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].End_Date__c : "") : "", justificationValue: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].Worker_Supervisor_Update_Justification__c : "") : "",showRiskFields: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? (person.CSECs__r[NUM_0].CSEC_Type__c == 'At Risk' ? true : false) : false) : false,
-                            vicAtTimRem: (person.At_risk_of_CSEC__c) ? ((person.At_risk_of_CSEC__c && csecChecks ) ? person.CSECs__r[NUM_0].CSEC_Victim_at_Time_of_Removal__c : "") : "", vicAnyTimPast: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].CSEC_Victim_Anytime_in_the_Past__c : "") : "", showWasVicPastFields: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? (person.CSECs__r[NUM_0].CSEC_Victim_Anytime_in_the_Past__c == 'Yes' ? true : false) : false) : false, showPastFields: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? (person.CSECs__r[NUM_0].Cross_Reported_to_Law_Enforcement_Past__c == 'Yes' ? true : false) : false) : false
+                            atRiskCsecCheckbox: (person.At_risk_of_CSEC__c ===true)?true:false, showCsecCheckbox: person.Role__c==='Alleged Victim' ?true:false, showCsec: person.At_risk_of_CSEC__c, csecId: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].Id : "") : "",
+                            csecType: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].CSEC_Type__c : "") : "", showDate: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? ((person.CSECs__r[NUM_0].(CSEC_Type__c !== null && CSEC_Type__c !== undefined) && person.CSECs__r[NUM_0].CSEC_Type__c !== '') ? true : false) : false) : false, startDate: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].Start_Date__c : "") : "", endDate: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].End_Date__c : "") : "", justificationValue: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].Worker_Supervisor_Update_Justification__c : "") : "",showRiskFields: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? (person.CSECs__r[NUM_0].CSEC_Type__c === 'At Risk' ? true : false) : false) : false,
+                            vicAtTimRem: (person.At_risk_of_CSEC__c) ? ((person.At_risk_of_CSEC__c && csecChecks ) ? person.CSECs__r[NUM_0].CSEC_Victim_at_Time_of_Removal__c : "") : "", vicAnyTimPast: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? person.CSECs__r[NUM_0].CSEC_Victim_Anytime_in_the_Past__c : "") : "", showWasVicPastFields: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? (person.CSECs__r[NUM_0].CSEC_Victim_Anytime_in_the_Past__c === 'Yes' ? true : false) : false) : false, showPastFields: (person.At_risk_of_CSEC__c) ? ((csecChecks ) ? (person.CSECs__r[NUM_0].Cross_Reported_to_Law_Enforcement_Past__c === 'Yes' ? true : false) : false) : false
                         });
                         
                     }
@@ -485,13 +485,13 @@ logger = getLogger();
     handleChangeCallnarative(event) {
         this.callNarrativeValue = event.detail.value;
         //CARESV1-3588
-        if (this.callNarrativeValue != null && this.callNarrativeValue != '') {
+        if ((this.callNarrativeValue !== null && this.callNarrativeValue !== undefined) && this.callNarrativeValue !== '') {
             this.richTextCount = true;
             this.remainingCharacter = NUM_127772 - this.callNarrativeValue.length;
-            if (this.callNarrativeValue != null && this.callNarrativeValue != '') {
+            if ((this.callNarrativeValue !== null && this.callNarrativeValue !== undefined) && this.callNarrativeValue !== '') {
                 this.richTextCount = true;
                 this.remainingCharacter = NUM_127772 - this.callNarrativeValue.length;
-                if (this.remainingCharacter == NUM_127772) {
+                if (this.remainingCharacter === NUM_127772) {
                     this.remainingCharacter = NUM_127772
                     this.richTextCount = false;
                 } else if (this.remainingCharacter < NUM_0) {
@@ -553,7 +553,7 @@ logger = getLogger();
         ageErrorEle.reportValidity('');
 
 
-        if (role == "Collateral") {
+        if (role === "Collateral") {
             this.personList[key].isCollateral = true;
             this.personList[key].isNotCollateral = false;
             this.personList[key].showCsecCheckbox = false;// added for CARESV1-1286.
@@ -561,7 +561,7 @@ logger = getLogger();
             this.personList[key].atRiskCsecCheckbox = false;// added for CARESV1-1286.
 
         }
-        else if (role == "Alleged Victim") {
+        else if (role === "Alleged Victim") {
             this.personList[key].isCollateral = false;
             this.personList[key].isNotCollateral = true;
             this.personList[key].collateralType = "";
@@ -586,7 +586,7 @@ logger = getLogger();
             this.personList[key].showCsec = false;// added for CARESV1-1286.
             this.personList[key].atRiskCsecCheckbox = false;// added for CARESV1-1286.
         }
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id); }
 
         this.compStepperTabPubSub();//added for CARESV1-2700
@@ -603,7 +603,7 @@ logger = getLogger();
         this.modalFunction = '';
         var key = event.currentTarget.dataset.value;
         this.personList[key].unknownCheckbox = unknownCheckbox;
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id); }
 
         this.compStepperTabPubSub();//added for CARESV1-2700
@@ -621,11 +621,11 @@ logger = getLogger();
         var atRiskCsecCheckbox = event.target.checked;
         this.modalFunction = '';
         var key = event.currentTarget.dataset.value;
-        this.personList[key].atRiskCsecCheckbox = (atRiskCsecCheckbox == true) ? true : false;
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        this.personList[key].atRiskCsecCheckbox = (atRiskCsecCheckbox === true) ? true : false;
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id);
         }
-        this.personList[key].showCsec = (this.personList[key].atRiskCsecCheckbox == true) ? true : false;
+        this.personList[key].showCsec = (this.personList[key].atRiskCsecCheckbox === true) ? true : false;
         this.personList[key].csecType = "";
         this.personList[key].startDate = "";
         this.personList[key].endDate = "";
@@ -655,7 +655,7 @@ logger = getLogger();
         this.modalFunction = '';
         var key = event.currentTarget.dataset.value;
         this.personList[key].collateralType = collateralType;
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id); }
 
         this.compStepperTabPubSub();//added for CARESV1-2700
@@ -671,7 +671,7 @@ logger = getLogger();
         var dob = event.detail.value;
         var key = event.currentTarget.dataset.value;
         this.personList[key].dob = dob;
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id); }
 
         // Changed the validation to reset whenever date changes without the following if condition.
@@ -681,11 +681,11 @@ logger = getLogger();
             var today = new Date(this.backendDate);
             var birthdate = new Date(dob);
             var calculatedAge = (today - birthdate) / (NUM_1000 * NUM_60 * NUM_60 * NUM_24);
-            if (dob != null) {
+            if ((dob !== null && dob !== undefined)) {
                 this.personList[key].showAutoError = true;
                 var year = parseInt(calculatedAge / NUM_365_2425);
 
-                if (year >= NUM_18 && this.personList[key].role == 'Alleged Victim') {
+                if (year >= NUM_18 && this.personList[key].role === 'Alleged Victim') {
                        event.currentTarget.setCustomValidity(VICTIM_OLDER_THAN_18_ERROR);
 
                 } 
@@ -736,28 +736,28 @@ logger = getLogger();
         var validDate = true;
 
         var dateFromUI = dob;
-        if (dateFromUI != null) {
+        if ((dateFromUI !== null && dateFromUI !== undefined)) {
             uiArray = dateFromUI.split('-');
         }
-        if (this.backendDate != null) {
+        if ((this.backendDate !== null && this.backendDate !== undefined)) {
             todayArray = this.backendDate.split('-');
         }
 
-        if (todayArray != null) {
+        if ((todayArray !== null && todayArray !== undefined)) {
             todayYear = Number(todayArray[NUM_0]);
             todayMonth = Number(todayArray[NUM_1]);
             todayDate = Number(todayArray[NUM_2]);
         }
 
-        if (uiArray != null) {
+        if ((uiArray !== null && uiArray !== undefined)) {
             uiYear = Number(uiArray[NUM_0]);
             uiMonth = Number(uiArray[NUM_1]);
             uiDate = Number(uiArray[NUM_2]);
         }
 
-        if (uiArray != null) {
-            if (uiYear == todayYear) {
-                if (uiMonth == todayMonth) {
+        if ((uiArray !== null && uiArray !== undefined)) {
+            if (uiYear === todayYear) {
+                if (uiMonth === todayMonth) {
                     if (uiDate > todayDate) {
                         validDate = false;
                     } else {
@@ -790,7 +790,7 @@ logger = getLogger();
         this.modalFunction = '';
         var key = event.currentTarget.dataset.value;
         this.personList[key].firstName = firstName;
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id); }
 
         this.compStepperTabPubSub();//added for CARESV1-2700
@@ -806,7 +806,7 @@ logger = getLogger();
         this.modalFunction = '';
         var key = event.currentTarget.dataset.value;
         this.personList[key].lastName = lastName;
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id); }
 
         this.compStepperTabPubSub();//added for CARESV1-2700
@@ -823,12 +823,12 @@ logger = getLogger();
         var key = event.currentTarget.dataset.value;
         this.modalFunction = '';
 
-        if (this.personList[key].DobManual == true) {
+        if (this.personList[key].DobManual === true) {
 
-            if (age != this.personList[key].approxage) {
+            if (age !== this.personList[key].approxage) {
                 event.currentTarget.setCustomValidity('Approximate Age can only be entered if BirthDate is unknown.');
             }
-            else if (age >= NUM_18 && this.personList[key].role == 'Alleged Victim') {
+            else if (age >= NUM_18 && this.personList[key].role === 'Alleged Victim') {
                 event.currentTarget.setCustomValidity(VICTIM_OLDER_THAN_18_ERROR);
             }
             else {
@@ -837,7 +837,7 @@ logger = getLogger();
             }
         } else {
 
-            if (age >= NUM_18 && this.personList[key].role == 'Alleged Victim') {
+            if (age >= NUM_18 && this.personList[key].role === 'Alleged Victim') {
                 event.currentTarget.setCustomValidity(VICTIM_OLDER_THAN_18_ERROR);
             }
             else {
@@ -845,7 +845,7 @@ logger = getLogger();
             }
             this.personList[key].approxage = age;
         }
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id); }
 
         this.compStepperTabPubSub();//added for CARESV1-2700
@@ -861,7 +861,7 @@ logger = getLogger();
         this.modalFunction = '';
         var key = event.currentTarget.dataset.value;
         this.personList[key].county = county;
-        if (this.personList[key].id != null && this.personList[key].id != '' && this.personList[key].id != 'undefined') {
+        if (this.personList[key].(id !== null && id !== undefined) && this.personList[key].id !== '' && this.personList[key].id !== 'undefined') {
             this.updatedRowIds.add(this.personList[key].id); }
 
         this.compStepperTabPubSub();//added for CARESV1-2700
@@ -879,8 +879,8 @@ logger = getLogger();
             scrRecordId: this.recordId
         })
             .then(result => {
-                if (result != null) {
-                    if (result.Reason_for_the_Call__c == ABUSE_NEGLECT) {
+                if ((result !== null && result !== undefined)) {
+                    if (result.Reason_for_the_Call__c === ABUSE_NEGLECT) {
                         this.showCalSAWS = true;
                     }
                     else {
@@ -950,7 +950,7 @@ logger = getLogger();
         */
     //for 1260
     handleStepperEvent() {
-        if (this.reasonFC == "Information & Referral: Comprehensive Prevention Services") {
+        if (this.reasonFC === "Information & Referral: Comprehensive Prevention Services") {
 
             const stepperComponentMap = 'Caller Information=Completed;Add a Person=Completed;Tribal Inquiry & Collaboration=Not Started';
 
@@ -960,7 +960,7 @@ logger = getLogger();
             this.dispatchEvent(stepperEvent);
 
         }
-        else if (this.reasonFC == "Information & Referral: Social Worker Information Request") {
+        else if (this.reasonFC === "Information & Referral: Social Worker Information Request") {
 
             const stepperComponentMap = 'Caller Information=Completed;Add a Person=Completed;Tribal Inquiry & Collaboration=Not Started';
 
@@ -1011,7 +1011,7 @@ logger = getLogger();
      */
     processScreeningPersons() {
         if (this.validateData() && this.validateDate() && this.narrativeValidity) {
-            if ((this.oldNarrativeValue != null && this.oldNarrativeValue != '') && (this.callNarrativeValue == null || this.callNarrativeValue == '')) {
+            if (((this.oldNarrativeValue !== null && this.oldNarrativeValue !== undefined) && this.oldNarrativeValue !== '') && ((this.callNarrativeValue === null || this.callNarrativeValue === undefined) || this.callNarrativeValue === '')) {
                 this.isDialogVisible = true;
                 this.modalFunction = 'DeleteNarrative';
                 this.confirmationMsg = 'Are you sure you want to delete the "Screening Narrative" information?';
@@ -1020,7 +1020,7 @@ logger = getLogger();
                 this.oldNarrativeValue = this.callNarrativeValue;
                 this.modalFunction = '';
                 this.isDialogVisible = false;
-                if (this.disableSave == false) {
+                if (this.disableSave === false) {
                     this.saveData(); }
                     debugger;
                     alert('Record is Saved');
@@ -1047,7 +1047,7 @@ logger = getLogger();
         this.disableSave = true;
 
         const scrRecord = { 'sobjectType': 'Screening__c' }; // Sending Screening object data
-        if (this.recordId != null) {
+        if ((this.recordId !== null && this.recordId !== undefined)) {
             scrRecord.Id = this.recordId;
         }
         scrRecord.CalSAWS_Validation__c = this.CalSAWSValidation;
@@ -1065,13 +1065,13 @@ logger = getLogger();
                 /* changes for CARESV1-1286 starts*/
                 var temp = JSON.stringify(result);
                 var splitTemp = temp.split(',');
-                var tempScpStatus=(splitTemp[NUM_1]!='null' && splitTemp[NUM_1]!='' && splitTemp[NUM_1]!=null)?splitTemp[NUM_1].includes('success'):'';
+                var tempScpStatus=(splitTemp[NUM_1]!=='null' && splitTemp[NUM_1]!=='' && (splitTemp[NUM_1] !== null && splitTemp[NUM_1] !== undefined))?splitTemp[NUM_1].includes('success'):'';
                 
                  if (splitTemp[NUM_0].includes('error')) {//added for 1286
                     this.disableSave = false;
                     this.showerror('Something went wrong while creating/updating CSE records, Contact your System Administrator!');
                 }
-                else if (!tempScpStatus && tempScpStatus!='') {//added for 1286
+                else if (!tempScpStatus && tempScpStatus!=='') {//added for 1286
                     this.disableSave = false;
                     this.showerror('Something went wrong, Contact your System Administrator!');
                 }
@@ -1156,8 +1156,8 @@ logger = getLogger();
         var input1=  this.template.querySelectorAll("lightning-input[data-id=edate]");
         if(input1.length > NUM_0){
             for (var i = NUM_0; i < input.length; i++) {
-               if(input1[i].value!='' && input1[i].value!=null){
-                if(input[i].value=='' || input[i].value==null){
+               if(input1[i].value!=='' && input1[i].(value !== null && value !== undefined)){
+                if(input[i].value==='' || input[i].(value === null || value === undefined)){
                     input[i].setCustomValidity(JUSTIFICATION_ERROR_MSG);
                     input[i].reportValidity();
                     areAllValid = false;
@@ -1207,20 +1207,20 @@ logger = getLogger();
     handleremove(event) {
 
         this.pid = event.currentTarget.dataset.id;
-        if ((this.personList[this.pid].id == null || this.personList[this.pid].id == '' || this.personList[this.pid].id == 'undefined')
-            && (this.personList[this.pid].role == null || this.personList[this.pid].role == '' || this.personList[this.pid].role == 'undefined')
-            && (this.personList[this.pid].collateralType == null || this.personList[this.pid].collateralType == '' || this.personList[this.pid].collateralType == 'undefined')
-            && (this.personList[this.pid].firstName == null || this.personList[this.pid].firstName == '' || this.personList[this.pid].firstName == 'undefined')
-            && (this.personList[this.pid].lastName == null || this.personList[this.pid].lastName == '' || this.personList[this.pid].lastName == 'undefined')
-            && (this.personList[this.pid].dob == null || this.personList[this.pid].dob == '' || this.personList[this.pid].dob == 'undefined')
-            && (this.personList[this.pid].approxage == null || this.personList[this.pid].approxage == '' || this.personList[this.pid].approxage == 'undefined')
-            && (this.personList[this.pid].county == null || this.personList[this.pid].county == '' || this.personList[this.pid].county == 'undefined')) {
+        if ((this.personList[this.pid].(id === null || id === undefined) || this.personList[this.pid].id === '' || this.personList[this.pid].id === 'undefined')
+            && (this.personList[this.pid].(role === null || role === undefined) || this.personList[this.pid].role === '' || this.personList[this.pid].role === 'undefined')
+            && (this.personList[this.pid].(collateralType === null || collateralType === undefined) || this.personList[this.pid].collateralType === '' || this.personList[this.pid].collateralType === 'undefined')
+            && (this.personList[this.pid].(firstName === null || firstName === undefined) || this.personList[this.pid].firstName === '' || this.personList[this.pid].firstName === 'undefined')
+            && (this.personList[this.pid].(lastName === null || lastName === undefined) || this.personList[this.pid].lastName === '' || this.personList[this.pid].lastName === 'undefined')
+            && (this.personList[this.pid].(dob === null || dob === undefined) || this.personList[this.pid].dob === '' || this.personList[this.pid].dob === 'undefined')
+            && (this.personList[this.pid].(approxage === null || approxage === undefined) || this.personList[this.pid].approxage === '' || this.personList[this.pid].approxage === 'undefined')
+            && (this.personList[this.pid].(county === null || county === undefined) || this.personList[this.pid].county === '' || this.personList[this.pid].county === 'undefined')) {
             this.isPersonNull = true;
         }
         else {
             this.isPersonNull = false;
         }
-        if (this.isPersonNull == true) {
+        if (this.isPersonNull === true) {
             this.splice();
             var inputs = this.template.querySelectorAll(".inputfield");
             inputs.forEach(input => {
@@ -1242,7 +1242,7 @@ logger = getLogger();
         else {
             this.personId = this.personList[this.pid].id;
             this.modalFunction = 'DeletePerson'
-            if (this.personId == null || this.personId == '' || this.personId == 'undefined') {
+            if ((this.personId === null || this.personId === undefined) || this.personId === '' || this.personId === 'undefined') {
                 this.confirmationMsg = 'Are you sure you want to delete this unsaved person?';
                 this.isDialogVisible = true;
             }
@@ -1314,11 +1314,11 @@ logger = getLogger();
     * Parameter    :  event
     */
     handlemodal(event) {
-        if (this.modalFunction == 'DeletePerson') {
-            if (event.detail != NUM_1) {
-                if (event.detail.status == 'confirm') {
+        if (this.modalFunction === 'DeletePerson') {
+            if (event.detail !== NUM_1) {
+                if (event.detail.status === 'confirm') {
                     this.isDialogVisible = false;
-                    if (this.personId == null || this.personId == '' || this.personId == 'undefined') {
+                    if ((this.personId === null || this.personId === undefined) || this.personId === '' || this.personId === 'undefined') {
 
                         this.splice();
                         var Errors = this.template.querySelectorAll('.inputfield');
@@ -1346,7 +1346,7 @@ logger = getLogger();
                     else {
                         deleteScreeningPerson({ personId: this.personId })
                             .then(result => {
-                                if (result == 'success') {
+                                if (result === 'success') {
                                     this.splice();
                                     var Errors = this.template.querySelectorAll('.inputfield');
                                     Errors.forEach(inputError => {
@@ -1382,20 +1382,20 @@ logger = getLogger();
                             })
                     }
 
-                } else if (event.detail.status == 'cancel') {
+                } else if (event.detail.status === 'cancel') {
                     this.isDialogVisible = false;
                 }
             }
 
         }
-        else if (this.modalFunction == 'DeleteNarrative') {
-            if (event.detail != NUM_1) {
+        else if (this.modalFunction === 'DeleteNarrative') {
+            if (event.detail !== NUM_1) {
 
-                if (event.detail.status == 'confirm') {
+                if (event.detail.status === 'confirm') {
                     this.oldNarrativeValue = '';
                     this.isDialogVisible = false;
                     this.saveData();
-                } else if (event.detail.status == 'cancel') {
+                } else if (event.detail.status === 'cancel') {
                     this.callNarrativeValue = this.oldNarrativeValue;
                     this.isDialogVisible = false;
                     this.saveData();
