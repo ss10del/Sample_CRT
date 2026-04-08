@@ -1,0 +1,9 @@
+{
+  "users": [
+    "admin-user1",
+    "techlead-user2"
+  ],
+  "teams": [
+    "org-name/dev-leads"
+  ]
+}
