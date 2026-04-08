@@ -1,9 +1,12 @@
 {
-  "rules": [
-    "ApexCRUDViolation",
-    "ApexFlsViolation"
-  ],
-  "files": [
-    "classes/LegacyClass.cls"
+  "entries": [
+    {
+      "rule": "ApexCRUDViolation",
+      "messageContains": "Missing CRUD check"
+    },
+    {
+      "rule": "Security-ApexXSSFromURLParam",
+      "messageContains": "URL parameter"
+    }
   ]
 }
