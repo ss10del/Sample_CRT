@@ -84,8 +84,8 @@ jobs:
           import os
 
           if not os.path.exists('sf-scanner-report.csv'):
-              print("No analyzer report found. Exiting.")
-              sys.exit(0)
+            print("No analyzer report found. Exiting.")
+            sys.exit(0)
 
           df = pd.read_csv('sf-scanner-report.csv', engine='python')
 
@@ -109,9 +109,9 @@ jobs:
               return False
 
           if not df_filtered.empty:
-              df_filtered["IsFalsePositive"] = df_filtered.apply(is_false_positive, axis=1)
+            df_filtered["IsFalsePositive"] = df_filtered.apply(is_false_positive, axis=1)
           else:
-              df_filtered["IsFalsePositive"] = False
+            df_filtered["IsFalsePositive"] = False
 
           real_violations = df_filtered[df_filtered["IsFalsePositive"] == False]
           false_violations = df_filtered[df_filtered["IsFalsePositive"] == True]
