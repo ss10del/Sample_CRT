@@ -12,7 +12,7 @@ const NUM_500 = 500;
 const NUM_30 = 30;
 const NUM_1 = 1;
 /**
-//Gemini
+//
 * Name: Cares_ParentScreeningComponent.js
 * Module: Intake
 * Type: LWC Component's JS controller
