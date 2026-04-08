@@ -34,7 +34,6 @@ public with sharing class CARES_AbsenceSelector extends fflib_SObjectSelector {
 	{
 		return Absence__c.sObjectType;
 	}
-  //Gemini
 	/**
 	* Method Name : getAbsenceForScheduleBatch
 	* @description : return Absence records
