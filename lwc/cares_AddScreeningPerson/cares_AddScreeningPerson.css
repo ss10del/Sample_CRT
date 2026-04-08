@@ -1,0 +1,98 @@
+.narativeDiv{
+    background:rgb(250, 248, 248);
+    padding: 7px;
+    font-weight: 500;
+    border: 1px solid rgb(235, 231, 231);
+    border-radius: 4px;
+}   
+
+.justificationhelp{
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+    padding-bottom: 1px;
+}
+.justificationlabel{
+    padding-left: 2px;
+}
+
+.marginDiv{
+    margin-bottom: 5px;
+}
+
+.buttonMargin{
+    margin-top: 1.5rem;
+}
+
+.accordionScreening .slds-accordion__summary {
+    background-color: rgb(243, 243, 243); 
+    font-weight: 600;
+    margin: 0px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border-radius: 4px;
+}
+
+
+/* .inputContainer .slds-col {
+     padding-right: var(--lwc-spacingSmall,0rem) !important;
+    padding-left: var(--lwc-spacingSmall,0rem) !important;
+} */
+
+.gutter{
+padding-right: var(--lwc-spacingSmall,0.75rem);
+padding-left: var(--lwc-spacingSmall,0.75rem);
+}
+
+.numberContainer{
+    width: 5%;
+    padding-left: 1rem;
+    margin-top: 1.5rem;
+}
+
+.inputContainer{
+    width: 90%;
+}
+
+.deleteContainer{
+    width: 5%;
+}
+
+.gutterRight{
+padding-right: 10px;
+margin-bottom: 1rem;
+}
+
+.hrLine{
+    
+    border-top: 2px solid var(--lwc-colorBorder,rgb(229, 229, 229));
+    margin-left: 1rem;
+}
+
+.css-serial {
+    counter-reset: serial-number;  /* Set the serial number counter to 0 */
+  }
+  
+  .css-serial p:before {
+    counter-increment: serial-number;  /* Increment the serial number counter */
+    content: counter(serial-number);  /* Display the counter */
+  }
+
+  .backgroundButton{
+    padding: 7px 0px;
+    border-radius: 5px;
+    background:rgba(245, 244, 244, 0.929);
+
+
+}
+.richTextError{
+    color: red;
+}
+
+/* .AddPersonRadio slds-form-element__legend{
+    font-weight:300 !important;
+    } */
+
+    .padTop{
+        /* padding-top: 1.2rem; */
+    }

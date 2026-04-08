@@ -1,0 +1,270 @@
+<template>
+
+    <lightning-card>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_8-of-8 slds-m-bottom_medium ">
+                <div class="narativeDiv">
+                    <p>Narrative</p>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_8-of-8 slds-m-bottom_medium">
+                <lightning-input-rich-text label-visible value={callNarrativeValue} label="Screening Narrative"
+                    formats={allowedFormats} onchange={handleChangeCallnarative} valid={narrativeValidity} disabled={disableAll}>
+                </lightning-input-rich-text>
+                <template if:false={narrativeValidity}>
+                    <div class="slds-float_right">
+                        <h1>
+                            <p class="richTextError" aria-live="assertive" >{remainingCharacter} characters are left</p>
+                        </h1>
+                    </div>
+                </template>
+                <template if:true={richTextCount}>
+                    <div class="slds-float_right">
+                        <h1>
+                            <p aria-live="assertive" >{remainingCharacter} characters are left</p>
+                        </h1>
+                    </div>
+                </template>
+            </div>
+
+            <div class="slds-col slds-size_8-of-8 slds-m-bottom_medium ">
+                <div class="narativeDiv">
+                    <p>Add Person</p>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_8-of-8">
+
+                <div class="slds-grid slds-wrap css-serial">
+
+                    <template for:each={personList} for:item="person" for:index="count">
+                        <div key={person} class="slds-col slds-size_12-of-12">
+                            <template if:true={count}>
+                                <hr class="hrLine">
+                            </template>
+                        </div>
+
+                        <div key={person} class="slds-col slds-size_1-of-12 numberContainer">
+                            <b>
+                                <p if:true={showSerialNo}></p>
+                            </b>
+                        </div>
+                        <div key={person} class="slds-col slds-size_10-of-12 inputContainer">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-combobox if:true={deleteInvoked} name="role"
+                                        class="role gutterRight inputfield" label="Role" placeholder="Select"
+                                        options={roles} value={person.role} onchange={handleRoleChange}
+                                        data-value={count} data-id={count} required message-when-value-missing=""
+                                        disabled={person.disableRole}>
+                                    </lightning-combobox>
+                                    <lightning-combobox if:false={deleteInvoked} name="role"
+                                        class="role gutterRight inputfield" label="Role" placeholder="Select"
+                                        options={roles} value={person.role} onchange={handleRoleChange}
+                                        data-value={count} data-id={count} required disabled={person.disableRole}>
+                                    </lightning-combobox>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <div if:true={deleteInvoked}>
+                                        <lightning-combobox if:true={person.isCollateral} name="colType"
+                                            class="colType gutterRight inputfield" label="Collateral Type"
+                                            placeholder="Select" options={collateralTypes} value={person.collateralType}
+                                            data-value={count} onchange={handleColTypeChange}
+                                            required={person.isCollateral} message-when-value-missing=""
+                                            disabled={person.disableCollateral}>
+                                        </lightning-combobox>
+                                    </div>
+                                    <div if:false={deleteInvoked}>
+                                        <lightning-combobox if:true={person.isCollateral} name="colType"
+                                            class="colType gutterRight inputfield" label="Collateral Type"
+                                            placeholder="Select" options={collateralTypes} value={person.collateralType}
+                                            data-value={count} onchange={handleColTypeChange}
+                                            required={person.isCollateral} disabled={person.disableCollateral}>
+                                        </lightning-combobox>
+                                    </div>
+                                    <lightning-combobox if:false={person.isCollateral} name="colType"
+                                        class="colType gutterRight inputfield" label="Collateral Type"
+                                        placeholder="Select" options={collateralTypes} value={person.collateralType}
+                                        data-value={count} onchange={handleColTypeChange} disabled>
+                                    </lightning-combobox>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-input if:true={deleteInvoked} name="firstName"
+                                        class="firstName gutterRight inputfield" label="First Name" maxlength="40"
+                                        type="text" value={person.firstName} onchange={handlefirstNameChange}
+                                        data-value={count} required message-when-value-missing=""  disabled={disableAll}
+                                        ></lightning-input>
+                                    <lightning-input if:false={deleteInvoked} name="firstName"
+                                        class="firstName gutterRight inputfield" label="First Name" maxlength="40"
+                                        type="text" value={person.firstName} onchange={handlefirstNameChange}
+                                        data-value={count} required disabled={disableAll} >
+                                    </lightning-input>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-input if:true={deleteInvoked} name="lastName"
+                                        class="lastName gutterRight inputfield" label="Last Name" maxlength="50"
+                                        type="text" value={person.lastName} data-value={count}
+                                        onchange={handleLastNameChange} required message-when-value-missing=""
+                                        disabled={disableAll} ></lightning-input>
+                                    <lightning-input if:false={deleteInvoked} name="lastName"
+                                        class="lastName gutterRight inputfield" label="Last Name" maxlength="50"
+                                        type="text" value={person.lastName} data-value={count}
+                                        onchange={handleLastNameChange} required disabled={disableAll}>
+                                    </lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-input type="checkbox" name="unknownCheckbox" disabled={disableAll}
+                                        class="unknownCheckbox gutterRight inputfield"
+                                        label="Unknown Person at the time of Screening" checked={person.unknownCheckbox}
+                                        onchange={handleUnknownChange} data-value={count}> </lightning-input>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-input if:true={deleteInvoked} type="Date" name="dob" date-style="short"
+                                        label="Date of Birth" class="dob gutterRight inputfield" value={person.dob}
+                                        data-value={count} data-id="dob" onchange={handleDOBchange}
+                                        disabled={disableAll} max={backendDate} message-when-range-overflow="">
+                                    </lightning-input>
+                                    <lightning-input if:false={deleteInvoked} type="Date" name="dob" date-style="short"
+                                        label="Date of Birth" class="dob gutterRight inputfield" value={person.dob}
+                                        data-value={count} data-id="dob" onchange={handleDOBchange}
+                                        disabled={disableAll} max={backendDate}
+                                        message-when-range-overflow="Date cannot be in the future."></lightning-input>
+
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <div if:true={person.DobManual}>
+                                        <lightning-input if:true={person.showAutoError}
+                                            class="age gutterRight inputfield" name="age" max-length="25"
+                                            label="Approximate Age" value={person.approxage} data-value={count}
+                                            data-id="aprroxAgeNoAutoError" onchange={handleAgeChange}
+                                            disabled={disableAll}></lightning-input>
+                                        <lightning-input if:false={person.showAutoError}
+                                            class="age gutterRight inputfield" name="age" max-length="25"
+                                            label="Approximate Age" value={person.approxage} data-value={count}
+                                            data-id="aprroxAgeAutoError" onchange={handleAgeChange}
+                                            disabled={disableAll}></lightning-input>
+                                    </div>
+                                    <div if:false={person.DobManual}>
+                                        <lightning-input if:true={deleteInvoked} class="age gutterRight inputfield" 
+                                            name="age" max-length="3" label="Approximate Age" value={person.approxage}
+                                            data-id="aprroxAgeManual" data-value={count} pattern="[0-9]+"
+                                            message-when-pattern-mismatch="When manually setting Approximate Age, only include numbers."
+                                            onchange={handleAgeChange} disabled={disableAll}></lightning-input>
+                                        <lightning-input if:false={deleteInvoked} class="age gutterRight inputfield"
+                                            name="age" max-length="3" label="Approximate Age" value={person.approxage}
+                                            data-id="aprroxAgeManual" data-value={count} pattern="[0-9]+"
+                                            message-when-pattern-mismatch="When manually setting Approximate Age, only include numbers."
+                                            onchange={handleAgeChange} disabled={disableAll}></lightning-input>
+                                    </div>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-combobox name="county" class="county gutterRight" label="County"
+                                        placeholder="Select" options={countyValues} value={person.county}
+                                        data-value={count} onchange={handleCountyChange} disabled={disableAll}>
+                                    </lightning-combobox>
+                                </div>
+
+                                <!-- 1286 starts -->
+                                <template if:true={person.showCsecCheckbox}>
+
+                                    <div class="slds-col slds-size_1-of-4">
+                                        <lightning-input type="checkbox" name="atriskcsec" disabled={person.disableAtRiskCsec}
+                                            class="unknownCheckbox gutterRight inputfield"
+                                            label="Further Investigation Required for Commercial Sexual Exploitation"
+                                            checked={person.atRiskCsecCheckbox} onchange={handleAtRiskCsecChange}
+                                            data-value={count}> </lightning-input>
+                                    </div>
+                                </template>
+                                 
+                            </div>
+                        </div>
+                            
+                            <div key={person} class="slds-col slds-size_1-of-12 deleteContainer" >
+                                <template if:false={person.ValidatedPersonFlag}>          
+                                    <div class="slds-float_right delete buttonMargin">
+                                        <lightning-button-icon icon-name="utility:delete" alternative-text="Delete"
+                                            name="DeleteModal" title="Delete" data-id={count} data-value={person}
+                                            onclick={handleremove} disabled={disableDelete}></lightning-button-icon>
+                                    </div>
+                                </template>
+                            </div>
+                       
+                          
+
+                        
+
+                    </template>
+                </div>
+            </div>
+
+
+            <div class=" slds-col slds-size_8-of-8 ">
+                <div class=" slds-m-top_large slds-align_absolute-center">
+                    <lightning-button if:true={disableAll} label='+ Add Row' name="addPerson" variant="brand-outline"
+                        onclick={addRow} disabled={disableAll}></lightning-button>
+                    <lightning-button if:false={disableAll} label='+ Add Row' name="addPerson" variant="brand-outline"
+                        onclick={addRow} disabled={isRowExceeded}></lightning-button>
+                </div>
+            </div>
+
+            <template if:true={showCalSAWS}>
+                <div class="slds-col slds-size_8-of-8 slds-p-top_medium">
+
+                    <div class="narativeDiv">
+                        <p>CalSAWS Search</p>
+                    </div>
+
+                </div>
+
+                <div class="slds-col slds-size_4-of-8 slds-p-top_medium">
+
+                    <lightning-radio-group name="radioGroup" label="CalSAWS Validation"
+                        options={calSAWSValidationValues} value={calSAWSValidation} type="radio"
+                        class="AddPersonRadio inputfield" onchange={onCalSAWSValidation} disabled={disableAll}>
+
+                    </lightning-radio-group>
+
+                </div>
+
+                <div class="slds-col slds-size_2-of-8 slds-p-top_medium">
+                    <lightning-input type="date" date-style="short" class="inputfield" name="input1"
+                        value={calSAWSValidationDate} onchange={OnCalSAWSDate} label="CalSAWS Validation Date"
+                        disabled={disableAll}>
+
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_2-of-8 slds-p-top_medium">
+
+                </div>
+
+                <div class="slds-col slds-size_8-of-8 slds-p-top_medium">
+                    <lightning-textarea label="CalSAWS Details" class="inputfield" name="CalSAWS Details"
+                        value={CalSAWSDetails} onchange={onCalSAWSDetails} max-length="2000" disabled={disableAll}>
+
+                    </lightning-textarea>
+                </div>
+            </template>
+
+
+            <div class=" slds-col slds-size_8-of-8 slds-clearfix">
+                <div class=" slds-m-top_large slds-align_absolute-center backgroundButton">
+                    <lightning-button label='Save and Proceed' name="SaveModal" variant="brand"
+                        onclick={processScreeningPersons} disabled={disableAll}></lightning-button>
+                </div>
+            </div>
+
+        </div>
+
+    </lightning-card>
+    <c-cares_generic-confirmation-modal title={modalTitle} message={confirmationMsg} confirm-label='Yes'
+        cancel-label='No' visible={isDialogVisible} name="confirmModal" onclick={handlemodal}>
+    </c-cares_generic-confirmation-modal>
+</template>
