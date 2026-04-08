@@ -245,7 +245,7 @@ cares_TrainingDetailsaccordionGroup0OpenSecs = ['accordionsection01carestraining
         }
     }
 	handleCustomActions(event) {
-        if (event.detail.name === "Save") {
+        if (event.detail.name == "Save") {
             this.paramsObject.handleSaveRecordResponse.eventData = event;
             handleSaveRecordResponse(this);
         }
