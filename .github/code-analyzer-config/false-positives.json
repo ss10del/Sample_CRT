@@ -1,0 +1,9 @@
+{
+  "rules": [
+    "ApexCRUDViolation",
+    "ApexFlsViolation"
+  ],
+  "files": [
+    "classes/LegacyClass.cls"
+  ]
+}
