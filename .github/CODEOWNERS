@@ -1,0 +1,6 @@
+# Apex code must be approved by dev leads
+/classes/ @your-org/dev-leads
+/triggers/ @your-org/dev-leads
+
+# LWC
+/lwc/ @your-org/frontend-team
