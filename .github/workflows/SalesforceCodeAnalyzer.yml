@@ -181,13 +181,6 @@ jobs:
             with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
                 f.write("fail_on_violation=false\n")
 
-      - name: Upload Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Salesforce-Code-Analyzer-Report
-          path: Violation_Report.xlsx
-
       - name: Check PR Approver for Bypass
         if: steps.violation_check.outputs.fail_on_violation == 'true'
         uses: actions/github-script@v8
