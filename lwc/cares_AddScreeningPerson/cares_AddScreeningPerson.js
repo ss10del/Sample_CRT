@@ -11,7 +11,7 @@ const NUM_18 = 18;
 const NUM_500 = 500;
 const NUM_30 = 30;
 const NUM_1 = 1;
-//SideKick
+//SideKick 
 /**
 * Name: Cares_ParentScreeningComponent.js
 * Module: Intake
