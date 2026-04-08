@@ -2,7 +2,6 @@ const NUM_0 = 0;
 /*
     cares_ScreenTrainingDetails
 */
-//Gemini
 import { LightningElement, track, api, wire } from 'lwc';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import kreatorBaseComponentsStyle from '@salesforce/resourceUrl/kreatorBaseComponentsStyle';
