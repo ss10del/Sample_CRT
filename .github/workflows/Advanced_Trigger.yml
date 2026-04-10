@@ -75,20 +75,18 @@ jobs:
           echo "crt_status=NOT RUN" >> $GITHUB_OUTPUT
 
           PROJECT_ID="${{ secrets.CRT_PROJECT_ID }}"
-          JOB_ID="${{ secrets.CRT_TEST_JOB_ID  }}"
+          JOB_ID="${{ secrets.CRT_JOB_ID }}"
           TOKEN="${{ secrets.CRT_API_TOKEN }}"
 
           echo "PROJECT_ID=$PROJECT_ID"
           echo "JOB_ID=$JOB_ID"
 
-          # ── Validate presence ──────────────────────────────────────────────
           if [ -z "$PROJECT_ID" ] || [ -z "$JOB_ID" ] || [ -z "$TOKEN" ]; then
             echo "❌ Missing required secrets"
             echo "crt_status=CONFIG ERROR" >> $GITHUB_OUTPUT
             exit 1
           fi
 
-          # ── Validate numeric ───────────────────────────────────────────────
           if ! [[ "$PROJECT_ID" =~ ^[0-9]+$ ]]; then
             echo "❌ PROJECT_ID must be numeric"
             exit 1
@@ -99,23 +97,10 @@ jobs:
             exit 1
           fi
 
-          # ── Trigger build ──────────────────────────────────────────────────
           echo "--- Triggering CRT build ---"
 
-          QUERY=$(cat <<EOF
-          mutation {
-            createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) {
-              message
-                data {
-                      id
-                      buildNumber
-                      status
-                      startTime
-                    }
-                  }
-                }
-              EOF
-            )
+          QUERY="mutation { createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) { message data { id buildNumber status startTime } } }"
+          PAYLOAD=$(jq -n --arg q "$QUERY" '{query: $q}')
 
           echo "----- GraphQL Query -----"
           echo "$QUERY"
@@ -124,7 +109,7 @@ jobs:
           RESPONSE=$(curl -s \
             --header "X-Authorization: $TOKEN" \
             --header "Content-Type: application/json" \
-            --data "$(jq -n --arg q "$QUERY" '{query: $q}')" \
+            --data "$PAYLOAD" \
             https://graphql.eu-robotic.copado.com/v1)
 
           echo "Trigger response: $RESPONSE"
@@ -152,21 +137,13 @@ jobs:
             ATTEMPT=$((ATTEMPT + 1))
             sleep 30
 
-            STATUS_QUERY=$(cat <<EOF
-              {
-                build(projectId: $PROJECT_ID, id: $BUILD_ID) {
-                  id
-                  status
-                  endTime
-                }
-              }
-            EOF
-          )
+            STATUS_QUERY="{ build(projectId: $PROJECT_ID, id: $BUILD_ID) { id status endTime } }"
+            STATUS_PAYLOAD=$(jq -n --arg q "$STATUS_QUERY" '{query: $q}')
 
             STATUS_RESP=$(curl -s \
               --header "X-Authorization: $TOKEN" \
               --header "Content-Type: application/json" \
-              --data "$(jq -n --arg q "$STATUS_QUERY" '{query: $q}')" \
+              --data "$STATUS_PAYLOAD" \
               https://graphql.eu-robotic.copado.com/v1)
 
             STATUS=$(echo "$STATUS_RESP" | jq -r '.data.build.status // "UNKNOWN"')
