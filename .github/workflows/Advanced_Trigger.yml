@@ -75,7 +75,7 @@ jobs:
           echo "crt_status=NOT RUN" >> $GITHUB_OUTPUT
 
           PROJECT_ID="${{ secrets.CRT_PROJECT_ID }}"
-          JOB_ID="${{ secrets.CRT_TEST_JOB_ID }}"
+          JOB_ID="${{ secrets.CRT_JOB_ID }}"
           TOKEN="${{ secrets.CRT_API_TOKEN }}"
 
           echo "PROJECT_ID=$PROJECT_ID"
@@ -128,7 +128,7 @@ jobs:
           echo "build_id=$BUILD_ID"   >> $GITHUB_OUTPUT
           echo "build_num=$BUILD_NUM" >> $GITHUB_OUTPUT
 
-          # ── Poll build status ──────────────────────────────────────────────
+          # ── Poll build status using runId ──────────────────────────────────
           MAX_ATTEMPTS=60
           ATTEMPT=0
           FINAL_STATUS="TIMED OUT"
@@ -137,22 +137,15 @@ jobs:
             ATTEMPT=$((ATTEMPT + 1))
             sleep 30
 
-            STATUS_QUERY="mutation { createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) { message data { id buildNumber status startTime } } }"
-            STATUS_PAYLOAD=$(jq -n --arg q "{ builds(projectId: $PROJECT_ID, jobId: $JOB_ID, id: $BUILD_ID) { id status } }" '{query: $q}')
-
             STATUS_RESP=$(curl -s \
               --header "X-Authorization: $TOKEN" \
               --header "Content-Type: application/json" \
-              --data "$(jq -n --arg q "{ run(id: $BUILD_ID) { id status } }" '{query: $q}')" \
+              --data "$(jq -n --arg q "{ run(runId: $BUILD_ID) { id status } }" '{query: $q}')" \
               https://graphql.eu-robotic.copado.com/v1)
 
             echo "Poll raw response: $STATUS_RESP"
 
-            STATUS=$(echo "$STATUS_RESP" | jq -r '
-              .data.run.status //
-              .data.build.status //
-              .data.builds[0].status //
-              "UNKNOWN"' | tr '[:upper:]' '[:lower:]')
+            STATUS=$(echo "$STATUS_RESP" | jq -r '.data.run.status // "UNKNOWN"' | tr '[:upper:]' '[:lower:]')
 
             echo "Attempt $ATTEMPT/$MAX_ATTEMPTS — Status: $STATUS"
 
@@ -165,7 +158,7 @@ jobs:
             elif [ "$STATUS" = "executing" ] || [ "$STATUS" = "running" ] || [ "$STATUS" = "pending" ] || [ "$STATUS" = "queued" ]; then
               echo "⏳ Still running..."
             else
-              echo "⚠️ Unknown status: $STATUS — full response: $STATUS_RESP"
+              echo "⚠️ Unrecognised status: $STATUS"
             fi
           done
 
