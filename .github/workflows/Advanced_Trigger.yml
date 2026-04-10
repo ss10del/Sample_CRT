@@ -74,26 +74,70 @@ jobs:
           echo "build_num=N/A"      >> $GITHUB_OUTPUT
           echo "crt_status=NOT RUN" >> $GITHUB_OUTPUT
 
-          # ── Trigger — exact same curl as original working code ─────────────
+          PROJECT_ID="${{ secrets.CRT_PROJECT_ID }}"
+          JOB_ID="${{ secrets.CRT_JOB_ID }}"
+          TOKEN="${{ secrets.CRT_API_TOKEN }}"
+
+          echo "PROJECT_ID=$PROJECT_ID"
+          echo "JOB_ID=$JOB_ID"
+
+          # ── Validate presence ──────────────────────────────────────────────
+          if [ -z "$PROJECT_ID" ] || [ -z "$JOB_ID" ] || [ -z "$TOKEN" ]; then
+            echo "❌ Missing required secrets"
+            echo "crt_status=CONFIG ERROR" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          # ── Validate numeric ───────────────────────────────────────────────
+          if ! [[ "$PROJECT_ID" =~ ^[0-9]+$ ]]; then
+            echo "❌ PROJECT_ID must be numeric"
+            exit 1
+          fi
+
+          if ! [[ "$JOB_ID" =~ ^[0-9]+$ ]]; then
+            echo "❌ JOB_ID must be numeric"
+            exit 1
+          fi
+
+          # ── Trigger build ──────────────────────────────────────────────────
           echo "--- Triggering CRT build ---"
 
+          QUERY=$(cat <<EOF
+mutation {
+  createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) {
+    message
+    data {
+      id
+      buildNumber
+      status
+      startTime
+    }
+  }
+}
+EOF
+)
+
+          echo "----- GraphQL Query -----"
+          echo "$QUERY"
+          echo "-------------------------"
+
           RESPONSE=$(curl -s \
-            --header "X-Authorization: ${{ secrets.CRT_API_TOKEN }}" \
+            --header "X-Authorization: $TOKEN" \
             --header "Content-Type: application/json" \
-            --json "{\"query\":\"mutation { createBuild(projectId: ${{ secrets.CRT_PROJECT_ID }}, jobId: ${{ secrets.CRT_JOB_ID }}) { message data { id buildNumber status startTime } } }\"}" \
+            --data "$(jq -n --arg q "$QUERY" '{query: $q}')" \
             https://graphql.eu-robotic.copado.com/v1)
 
           echo "Trigger response: $RESPONSE"
 
-          if echo "$RESPONSE" | grep -q '"errors"'; then
+          if echo "$RESPONSE" | jq -e '.errors' > /dev/null; then
             echo "❌ GraphQL returned errors"
             echo "crt_status=TRIGGER FAILED" >> $GITHUB_OUTPUT
             exit 1
           fi
 
-          BUILD_ID=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['id'])")
-          BUILD_NUM=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['buildNumber'])")
-          INIT_STATUS=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['status'])")
+          BUILD_ID=$(echo "$RESPONSE"  | jq -r '.data.createBuild.data.id')
+          BUILD_NUM=$(echo "$RESPONSE" | jq -r '.data.createBuild.data.buildNumber')
+          INIT_STATUS=$(echo "$RESPONSE" | jq -r '.data.createBuild.data.status')
 
           echo "✅ Build triggered — ID: $BUILD_ID | #$BUILD_NUM | Status: $INIT_STATUS"
           echo "build_id=$BUILD_ID"   >> $GITHUB_OUTPUT
@@ -108,13 +152,24 @@ jobs:
             ATTEMPT=$((ATTEMPT + 1))
             sleep 30
 
+            STATUS_QUERY=$(cat <<EOF
+{
+  build(projectId: $PROJECT_ID, id: $BUILD_ID) {
+    id
+    status
+    endTime
+  }
+}
+EOF
+)
+
             STATUS_RESP=$(curl -s \
-              --header "X-Authorization: ${{ secrets.CRT_API_TOKEN }}" \
+              --header "X-Authorization: $TOKEN" \
               --header "Content-Type: application/json" \
-              --json "{\"query\":\"{ build(projectId: ${{ secrets.CRT_PROJECT_ID }}, id: $BUILD_ID) { id status endTime } }\"}" \
+              --data "$(jq -n --arg q "$STATUS_QUERY" '{query: $q}')" \
               https://graphql.eu-robotic.copado.com/v1)
 
-            STATUS=$(echo "$STATUS_RESP" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['build']['status'])" 2>/dev/null || echo "UNKNOWN")
+            STATUS=$(echo "$STATUS_RESP" | jq -r '.data.build.status // "UNKNOWN"')
 
             echo "Attempt $ATTEMPT/$MAX_ATTEMPTS — Status: $STATUS"
 
