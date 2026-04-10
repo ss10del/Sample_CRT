@@ -74,58 +74,32 @@ jobs:
           echo "build_num=N/A"      >> $GITHUB_OUTPUT
           echo "crt_status=NOT RUN" >> $GITHUB_OUTPUT
 
-          PROJECT_ID="${{ secrets.CRT_PROJECT_ID }}"
-          JOB_ID="${{ secrets.CRT_JOB_ID }}"
-          TOKEN="${{ secrets.CRT_API_TOKEN }}"
-
-          if [ -z "$PROJECT_ID" ] || [ -z "$JOB_ID" ] || [ -z "$TOKEN" ]; then
-            echo "❌ Missing required secrets"
-            echo "crt_status=CONFIG ERROR" >> $GITHUB_OUTPUT
-            exit 1
-          fi
-
+          # ── Trigger — exact same curl as original working code ─────────────
           echo "--- Triggering CRT build ---"
 
-          QUERY=$(cat <<'EOF'
-mutation {
-  createBuild(projectId: "PROJECT_ID_PLACEHOLDER", jobId: "JOB_ID_PLACEHOLDER") {
-    message
-    data {
-      id
-      buildNumber
-      status
-      startTime
-    }
-  }
-}
-EOF
-)
-          QUERY="${QUERY/PROJECT_ID_PLACEHOLDER/$PROJECT_ID}"
-          QUERY="${QUERY/JOB_ID_PLACEHOLDER/$JOB_ID}"
-
           RESPONSE=$(curl -s \
-            --header "X-Authorization: $TOKEN" \
+            --header "X-Authorization: ${{ secrets.CRT_API_TOKEN }}" \
             --header "Content-Type: application/json" \
-            --data "$(jq -n --arg q "$QUERY" '{query: $q}')" \
+            --json "{\"query\":\"mutation { createBuild(projectId: ${{ secrets.CRT_PROJECT_ID }}, jobId: ${{ secrets.CRT_JOB_ID }}) { message data { id buildNumber status startTime } } }\"}" \
             https://graphql.eu-robotic.copado.com/v1)
 
           echo "Trigger response: $RESPONSE"
 
-          if echo "$RESPONSE" | jq -e '.errors' > /dev/null; then
+          if echo "$RESPONSE" | grep -q '"errors"'; then
             echo "❌ GraphQL returned errors"
             echo "crt_status=TRIGGER FAILED" >> $GITHUB_OUTPUT
             exit 1
           fi
 
-          BUILD_ID=$(echo "$RESPONSE"  | jq -r '.data.createBuild.data.id')
-          BUILD_NUM=$(echo "$RESPONSE" | jq -r '.data.createBuild.data.buildNumber')
-          INIT_STATUS=$(echo "$RESPONSE" | jq -r '.data.createBuild.data.status')
+          BUILD_ID=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['id'])")
+          BUILD_NUM=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['buildNumber'])")
+          INIT_STATUS=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['status'])")
 
           echo "✅ Build triggered — ID: $BUILD_ID | #$BUILD_NUM | Status: $INIT_STATUS"
           echo "build_id=$BUILD_ID"   >> $GITHUB_OUTPUT
           echo "build_num=$BUILD_NUM" >> $GITHUB_OUTPUT
 
-          # ── Poll build status ────────────────────────────────────────────
+          # ── Poll build status ──────────────────────────────────────────────
           MAX_ATTEMPTS=60
           ATTEMPT=0
           FINAL_STATUS="TIMED OUT"
@@ -134,33 +108,20 @@ EOF
             ATTEMPT=$((ATTEMPT + 1))
             sleep 30
 
-            STATUS_QUERY=$(cat <<'EOF'
-{
-  build(projectId: "PROJECT_ID_PLACEHOLDER", id: "BUILD_ID_PLACEHOLDER") {
-    id
-    status
-    endTime
-  }
-}
-EOF
-)
-            STATUS_QUERY="${STATUS_QUERY/PROJECT_ID_PLACEHOLDER/$PROJECT_ID}"
-            STATUS_QUERY="${STATUS_QUERY/BUILD_ID_PLACEHOLDER/$BUILD_ID}"
-
             STATUS_RESP=$(curl -s \
-              --header "X-Authorization: $TOKEN" \
+              --header "X-Authorization: ${{ secrets.CRT_API_TOKEN }}" \
               --header "Content-Type: application/json" \
-              --data "$(jq -n --arg q "$STATUS_QUERY" '{query: $q}')" \
+              --json "{\"query\":\"{ build(projectId: ${{ secrets.CRT_PROJECT_ID }}, id: $BUILD_ID) { id status endTime } }\"}" \
               https://graphql.eu-robotic.copado.com/v1)
 
-            STATUS=$(echo "$STATUS_RESP" | jq -r '.data.build.status // "UNKNOWN"')
+            STATUS=$(echo "$STATUS_RESP" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['build']['status'])" 2>/dev/null || echo "UNKNOWN")
 
             echo "Attempt $ATTEMPT/$MAX_ATTEMPTS — Status: $STATUS"
 
-            if [[ "$STATUS" =~ ^(PASSED|SUCCESS|COMPLETED)$ ]]; then
+            if [ "$STATUS" = "PASSED" ] || [ "$STATUS" = "SUCCESS" ] || [ "$STATUS" = "COMPLETED" ]; then
               FINAL_STATUS="PASSED"
               break
-            elif [[ "$STATUS" =~ ^(FAILED|ERROR|ABORTED)$ ]]; then
+            elif [ "$STATUS" = "FAILED" ] || [ "$STATUS" = "ERROR" ] || [ "$STATUS" = "ABORTED" ]; then
               FINAL_STATUS="FAILED ($STATUS)"
               break
             else
@@ -171,7 +132,7 @@ EOF
           echo "crt_status=$FINAL_STATUS" >> $GITHUB_OUTPUT
           echo "Final CRT result: $FINAL_STATUS"
 
-      # ── STEP 4 ─ Print summary ───────────────────────────────────────────
+      # ── STEP 4 ─ Print summary ─────────────────────────────────────────────
       - name: Print Job Summary
         if: always() && steps.pr_meta.outputs.has_pr == 'true'
         run: |
