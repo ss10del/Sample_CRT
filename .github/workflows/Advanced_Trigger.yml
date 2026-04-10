@@ -103,19 +103,19 @@ jobs:
           echo "--- Triggering CRT build ---"
 
           QUERY=$(cat <<EOF
-mutation {
-  createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) {
-    message
-    data {
-      id
-      buildNumber
-      status
-      startTime
-    }
-  }
-}
-EOF
-)
+          mutation {
+            createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) {
+              message
+                data {
+                      id
+                      buildNumber
+                      status
+                      startTime
+                    }
+                  }
+                }
+              EOF
+            )
 
           echo "----- GraphQL Query -----"
           echo "$QUERY"
@@ -153,15 +153,15 @@ EOF
             sleep 30
 
             STATUS_QUERY=$(cat <<EOF
-{
-  build(projectId: $PROJECT_ID, id: $BUILD_ID) {
-    id
-    status
-    endTime
-  }
-}
-EOF
-)
+              {
+                build(projectId: $PROJECT_ID, id: $BUILD_ID) {
+                  id
+                  status
+                  endTime
+                }
+              }
+            EOF
+          )
 
             STATUS_RESP=$(curl -s \
               --header "X-Authorization: $TOKEN" \
