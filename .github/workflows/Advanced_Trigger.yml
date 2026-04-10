@@ -82,16 +82,11 @@ jobs:
           # ── Trigger build ──────────────────────────────────────────────────
           echo "--- Triggering CRT build ---"
 
-          TRIGGER_QUERY=$(cat <<EOF
-          {"query":"mutation { createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) { message data { id buildNumber status startTime } } }"}
-          EOF
-          )
-
           RESPONSE=$(curl -s \
             -X POST \
             -H "X-Authorization: $CRT_API_TOKEN" \
             -H "Content-Type: application/json" \
-            -d "$TRIGGER_QUERY" \
+            -d "{\"query\":\"mutation { createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) { message data { id buildNumber status startTime } } }\"}" \
             "$GQL_URL")
 
           echo "Trigger response: $RESPONSE"
@@ -119,16 +114,11 @@ jobs:
             ATTEMPT=$((ATTEMPT + 1))
             sleep 30
 
-            POLL_QUERY=$(cat <<EOF
-          {"query":"{ build(projectId: $PROJECT_ID, id: $BUILD_ID) { id status endTime } }"}
-          EOF
-            )
-
             STATUS_RESP=$(curl -s \
               -X POST \
               -H "X-Authorization: $CRT_API_TOKEN" \
               -H "Content-Type: application/json" \
-              -d "$POLL_QUERY" \
+              -d "{\"query\":\"{ build(projectId: $PROJECT_ID, id: $BUILD_ID) { id status endTime } }\"}" \
               "$GQL_URL" || echo '{}')
 
             STATUS=$(echo "$STATUS_RESP" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('data',{}).get('build',{}).get('status','UNKNOWN'))" 2>/dev/null || echo "UNKNOWN")
