@@ -1,4 +1,4 @@
-name: UAT Trigger Copado Robotic Testing Job1
+name: UAT Trigger Copado Robotic Testing Job
 
 on:
   workflow_dispatch:
@@ -65,20 +65,6 @@ jobs:
             | jq -r '[.[] | select(.state=="APPROVED")] | last | .user.login // "No approver found"')
           echo "pr_approver=$APPROVER" >> $GITHUB_OUTPUT
 
-      - name: Debug Secret Names
-        run: |
-          echo "CRT_JOB_ID        length: ${#S1}"
-          echo "CRT_TEST_JOB_ID   length: ${#S2}"
-          echo "CRT_JOB           length: ${#S3}"
-          echo "CRT_PROJECT_ID    length: ${#S4}"
-          echo "CRT_API_TOKEN     length: ${#S5}"
-        env:
-          S1: ${{ secrets.CRT_JOB_ID }}
-          S2: ${{ secrets.CRT_TEST_JOB_ID }}
-          S3: ${{ secrets.CRT_JOB }}
-          S4: ${{ secrets.CRT_PROJECT_ID }}
-          S5: ${{ secrets.CRT_API_TOKEN }}
-          
       # ── STEP 3 ─ Trigger CRT job via GraphQL ──────────────────────────────
       - name: Trigger and Poll CRT Job
         id: crt
@@ -89,7 +75,7 @@ jobs:
           echo "crt_status=NOT RUN" >> $GITHUB_OUTPUT
 
           PROJECT_ID="${{ secrets.CRT_PROJECT_ID }}"
-          JOB_ID="${{ secrets.CRT_TEST_JOB_ID }}"
+          JOB_ID="${{ secrets.CRT_JOB_ID }}"
           TOKEN="${{ secrets.CRT_API_TOKEN }}"
 
           echo "PROJECT_ID=$PROJECT_ID"
@@ -135,7 +121,7 @@ jobs:
           fi
 
           BUILD_ID=$(echo "$RESPONSE"  | jq -r '.data.createBuild.data.id')
-          BUILD_NUM=$(echo "$RESPONSE" | jq -r '.data.createBuild.data.buildNumber')
+          BUILD_NUM=$(echo "$RESPONSE" | jq -r '.data.createBuild.data.buildNumber // "N/A"')
           INIT_STATUS=$(echo "$RESPONSE" | jq -r '.data.createBuild.data.status')
 
           echo "✅ Build triggered — ID: $BUILD_ID | #$BUILD_NUM | Status: $INIT_STATUS"
@@ -151,33 +137,40 @@ jobs:
             ATTEMPT=$((ATTEMPT + 1))
             sleep 30
 
-            STATUS_QUERY="{ build(projectId: $PROJECT_ID, id: $BUILD_ID) { id status endTime } }"
-            STATUS_PAYLOAD=$(jq -n --arg q "$STATUS_QUERY" '{query: $q}')
+            STATUS_QUERY="mutation { createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) { message data { id buildNumber status startTime } } }"
+            STATUS_PAYLOAD=$(jq -n --arg q "{ builds(projectId: $PROJECT_ID, jobId: $JOB_ID, id: $BUILD_ID) { id status } }" '{query: $q}')
 
             STATUS_RESP=$(curl -s \
               --header "X-Authorization: $TOKEN" \
               --header "Content-Type: application/json" \
-              --data "$STATUS_PAYLOAD" \
+              --data "$(jq -n --arg q "{ run(id: $BUILD_ID) { id status } }" '{query: $q}')" \
               https://graphql.eu-robotic.copado.com/v1)
 
-            STATUS=$(echo "$STATUS_RESP" | jq -r '.data.build.status // "UNKNOWN"')
+            echo "Poll raw response: $STATUS_RESP"
+
+            STATUS=$(echo "$STATUS_RESP" | jq -r '
+              .data.run.status //
+              .data.build.status //
+              .data.builds[0].status //
+              "UNKNOWN"' | tr '[:upper:]' '[:lower:]')
 
             echo "Attempt $ATTEMPT/$MAX_ATTEMPTS — Status: $STATUS"
 
-            if [ "$STATUS" = "PASSED" ] || [ "$STATUS" = "SUCCESS" ] || [ "$STATUS" = "COMPLETED" ]; then
+            if [ "$STATUS" = "passed" ] || [ "$STATUS" = "success" ] || [ "$STATUS" = "completed" ]; then
               FINAL_STATUS="PASSED"
               break
-            elif [ "$STATUS" = "FAILED" ] || [ "$STATUS" = "ERROR" ] || [ "$STATUS" = "ABORTED" ]; then
+            elif [ "$STATUS" = "failed" ] || [ "$STATUS" = "error" ] || [ "$STATUS" = "aborted" ]; then
               FINAL_STATUS="FAILED ($STATUS)"
               break
-            else
+            elif [ "$STATUS" = "executing" ] || [ "$STATUS" = "running" ] || [ "$STATUS" = "pending" ] || [ "$STATUS" = "queued" ]; then
               echo "⏳ Still running..."
+            else
+              echo "⚠️ Unknown status: $STATUS — full response: $STATUS_RESP"
             fi
           done
 
           echo "crt_status=$FINAL_STATUS" >> $GITHUB_OUTPUT
           echo "Final CRT result: $FINAL_STATUS"
-
 
       # ── STEP 4 ─ Print summary ─────────────────────────────────────────────
       - name: Print Job Summary
