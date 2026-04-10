@@ -36,7 +36,7 @@ jobs:
         run: |
           REPO="${{ github.repository }}"
           COMMIT_SHA="${{ github.sha }}"
-          TARGET_BRANCH="my-uat"
+          TARGET_BRANCH="${{ github.ref_name }}"   # ← was hardcoded "my-uat"
 
           echo "🔍 Looking for a merged PR whose merge_commit_sha = $COMMIT_SHA"
 
