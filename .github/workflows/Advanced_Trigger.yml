@@ -75,7 +75,7 @@ jobs:
           echo "crt_status=NOT RUN" >> $GITHUB_OUTPUT
 
           PROJECT_ID="${{ secrets.CRT_PROJECT_ID }}"
-          JOB_ID="${{ secrets.CRT_JOB_ID }}"
+          JOB_ID="${{ secrets.CRT_TEST_JOB_ID }}"
           TOKEN="${{ secrets.CRT_API_TOKEN }}"
 
           echo "PROJECT_ID=$PROJECT_ID"
