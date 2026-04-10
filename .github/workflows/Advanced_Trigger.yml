@@ -14,7 +14,6 @@ jobs:
       contents: read
 
     steps:
-    
       # ── STEP 1 ─ Checkout repository ──────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,7 +41,7 @@ jobs:
             | head -1)
 
           if [ -z "$PR_NUMBER" ]; then
-            echo "⏭️  No merged PR found for this commit — treating as a direct push. Skipping CRT."
+            echo "⏭️  No merged PR found — treating as a direct push. Skipping CRT."
             echo "has_pr=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -54,8 +53,7 @@ jobs:
 
           MATCHED_PR=$(echo "$PR_DATA" | jq \
             --arg sha "$COMMIT_SHA" \
-            '.[] | select(.merged_at != null and .merge_commit_sha == $sha)' \
-            | head -c 100000)
+            '.[] | select(.merged_at != null and .merge_commit_sha == $sha)')
 
           PR_RAISER=$(echo "$MATCHED_PR" | jq -r '.user.login // "unknown"')
           echo "pr_raiser=$PR_RAISER" >> $GITHUB_OUTPUT
@@ -66,98 +64,49 @@ jobs:
             | jq -r '[.[] | select(.state=="APPROVED")] | last | .user.login // "No approver found"')
           echo "pr_approver=$APPROVER" >> $GITHUB_OUTPUT
 
-          echo "--- GITHUB_OUTPUT contents ---"
-          cat $GITHUB_OUTPUT
-
-      # ── DEBUG ─ Remove after confirming auth works ─────────────────────────
-      - name: Debug CRT Auth
-        if: steps.pr_meta.outputs.has_pr == 'true'
-        env:
-          API_TOKEN: ${{ secrets.CRT_API_TOKEN }}
-          PROJECT_ID: ${{ secrets.CRT_PROJECT_ID }}
-        run: |
-          BASE="https://eu-robotic.copado.com/pace/v4"
-
-          echo "--- Token length: ${#API_TOKEN} chars ---"
-
-          echo "--- Try 1: Authorization Bearer ---"
-          curl -s -o /tmp/r1.json -w "HTTP %{http_code}" \
-            -H "Authorization: Bearer $API_TOKEN" \
-            -H "Content-Type: application/json" \
-            "$BASE/projects/$PROJECT_ID/jobs"
-          echo "" && cat /tmp/r1.json
-
-          echo "--- Try 2: x-api-key ---"
-          curl -s -o /tmp/r2.json -w "HTTP %{http_code}" \
-            -H "x-api-key: $API_TOKEN" \
-            -H "Content-Type: application/json" \
-            "$BASE/projects/$PROJECT_ID/jobs"
-          echo "" && cat /tmp/r2.json
-
-          echo "--- Try 3: x-access-key ---"
-          curl -s -o /tmp/r3.json -w "HTTP %{http_code}" \
-            -H "x-access-key: $API_TOKEN" \
-            -H "Content-Type: application/json" \
-            "$BASE/projects/$PROJECT_ID/jobs"
-          echo "" && cat /tmp/r3.json
-          
-      # ── STEP 3 ─ Trigger CRT job → Poll to completion ─────────────────────
+      # ── STEP 3 ─ Trigger CRT job via GraphQL ──────────────────────────────
       - name: Trigger and Poll CRT Job
         id: crt
         if: steps.pr_meta.outputs.has_pr == 'true'
         env:
-          PROJECT_ID: ${{ secrets.CRT_PROJECT_ID }}
-          JOB_ID:     ${{ secrets.CRT_TEST_JOB_ID }}
-          API_TOKEN:  ${{ secrets.CRT_API_TOKEN }}
+          CRT_API_TOKEN: ${{ secrets.CRT_API_TOKEN }}
+          PROJECT_ID:    ${{ secrets.CRT_PROJECT_ID }}
+          JOB_ID:        ${{ secrets.CRT_TEST_JOB_ID }}
         run: |
-          BASE="https://eu-robotic.copado.com/pace/v4"
+          GQL_URL="https://graphql.eu-robotic.copado.com/v1"
 
-          echo "job_name=Unknown Job" >> $GITHUB_OUTPUT
-          echo "job_id=${JOB_ID}"     >> $GITHUB_OUTPUT
-          echo "build_id=N/A"         >> $GITHUB_OUTPUT
-          echo "crt_status=NOT RUN"   >> $GITHUB_OUTPUT
+          echo "build_id=N/A"       >> $GITHUB_OUTPUT
+          echo "crt_status=NOT RUN" >> $GITHUB_OUTPUT
 
-          if [ -z "$PROJECT_ID" ] || [ -z "$JOB_ID" ] || [ -z "$API_TOKEN" ]; then
-            echo "❌ Missing PROJECT_ID, JOB_ID or CRT_API_TOKEN secret"
-            echo "crt_status=MISSING SECRETS" >> $GITHUB_OUTPUT
-            exit 1
-          fi
-
-          echo "Using PROJECT_ID=$PROJECT_ID  JOB_ID=$JOB_ID"
-
-          AUTH_HEADER="Authorization: Bearer $API_TOKEN"
-
-          # ── 1. Fetch job name ──────────────────────────────────────────────
-          echo "--- Fetching job info ---"
-          JOB_INFO=$(curl -s \
-            -H "$AUTH_HEADER" \
+          # ── Trigger build ──────────────────────────────────────────────────
+          echo "--- Triggering CRT build ---"
+          RESPONSE=$(curl -s \
+            -H "X-Authorization: $CRT_API_TOKEN" \
             -H "Content-Type: application/json" \
-            "$BASE/projects/$PROJECT_ID/jobs/$JOB_ID")
-          echo "Job info: $JOB_INFO"
+            --json "{\"query\":\"mutation { createBuild(projectId: $PROJECT_ID, jobId: $JOB_ID) { message data { id buildNumber status startTime } } }\"}" \
+            "$GQL_URL")
 
-          JOB_NAME=$(echo "$JOB_INFO" | jq -r '.name // "Unknown Job"')
-          echo "job_name=$JOB_NAME" >> $GITHUB_OUTPUT
-          echo "job_id=$JOB_ID"     >> $GITHUB_OUTPUT
+          echo "Trigger response: $RESPONSE"
 
-          # ── 2. Trigger build ───────────────────────────────────────────────
-          echo "--- Triggering build ---"
-          TRIGGER_RESP=$(curl -s -X POST \
-            -H "$AUTH_HEADER" \
-            -H "Content-Type: application/json" \
-            "$BASE/projects/$PROJECT_ID/jobs/$JOB_ID/builds")
-          echo "Trigger response: $TRIGGER_RESP"
-
-          BUILD_ID=$(echo "$TRIGGER_RESP" | jq -r '.id // .data.id // empty')
-          if [ -z "$BUILD_ID" ] || [ "$BUILD_ID" = "null" ]; then
-            echo "❌ Failed to extract Build ID"
+          if echo "$RESPONSE" | grep -q '"errors"'; then
+            echo "❌ GraphQL returned errors"
             echo "crt_status=TRIGGER FAILED" >> $GITHUB_OUTPUT
             exit 1
           fi
-          echo "✅ Build triggered — Build ID: $BUILD_ID"
-          echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
 
-          # ── 3. Poll until complete (max 30 min) ────────────────────────────
-          MAX_ATTEMPTS=60
+          BUILD_ID=$(echo "$RESPONSE" | python3 -c \
+            "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['id'])")
+          BUILD_NUM=$(echo "$RESPONSE" | python3 -c \
+            "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['buildNumber'])")
+          INIT_STATUS=$(echo "$RESPONSE" | python3 -c \
+            "import sys,json; print(json.load(sys.stdin)['data']['createBuild']['data']['status'])")
+
+          echo "✅ Build triggered — ID: $BUILD_ID  |  #$BUILD_NUM  |  Status: $INIT_STATUS"
+          echo "build_id=$BUILD_ID"     >> $GITHUB_OUTPUT
+          echo "build_num=$BUILD_NUM"   >> $GITHUB_OUTPUT
+
+          # ── Poll build status via GraphQL ──────────────────────────────────
+          MAX_ATTEMPTS=60   # 60 × 30s = 30 min max
           ATTEMPT=0
           FINAL_STATUS="TIMED OUT"
 
@@ -166,12 +115,16 @@ jobs:
             sleep 30
 
             STATUS_RESP=$(curl -s \
-              -H "$AUTH_HEADER" \
+              -H "X-Authorization: $CRT_API_TOKEN" \
               -H "Content-Type: application/json" \
-              "$BASE/projects/$PROJECT_ID/jobs/$JOB_ID/builds/$BUILD_ID" \
-              || echo '{}')
+              --json "{\"query\":\"{ build(projectId: $PROJECT_ID, id: $BUILD_ID) { id status endTime } }\"}" \
+              "$GQL_URL" || echo '{}')
 
-            STATUS=$(echo "$STATUS_RESP" | jq -r '.status // "UNKNOWN"')
+            STATUS=$(echo "$STATUS_RESP" | python3 -c \
+              "import sys,json
+d=json.load(sys.stdin)
+print(d.get('data',{}).get('build',{}).get('status','UNKNOWN'))" 2>/dev/null || echo "UNKNOWN")
+
             echo "Attempt $ATTEMPT/$MAX_ATTEMPTS — Status: $STATUS"
 
             case "$STATUS" in
@@ -179,7 +132,7 @@ jobs:
                 FINAL_STATUS="PASSED"; break ;;
               FAILED|ERROR|ABORTED)
                 FINAL_STATUS="FAILED ($STATUS)"; break ;;
-              RUNNING|PENDING|QUEUED|IN_PROGRESS)
+              RUNNING|PENDING|QUEUED|IN_PROGRESS|IN_QUEUE)
                 echo "⏳ Still running..." ;;
               *)
                 echo "⚠️  Unrecognised status: $STATUS" ;;
@@ -201,8 +154,7 @@ jobs:
           echo "  Workflow Run #  : ${{ steps.pr_meta.outputs.run_number }}"
           echo "  PR Raiser       : ${{ steps.pr_meta.outputs.pr_raiser }}"
           echo "  PR Approver     : ${{ steps.pr_meta.outputs.pr_approver }}"
-          echo "  Test Job Name   : ${{ steps.crt.outputs.job_name }}"
-          echo "  Test Job ID     : ${{ steps.crt.outputs.job_id }}"
+          echo "  Build Number    : ${{ steps.crt.outputs.build_num }}"
           echo "  Build ID        : ${{ steps.crt.outputs.build_id }}"
           echo "  Test Result     : ${{ steps.crt.outputs.crt_status }}"
           echo "╚══════════════════════════════════════════╝"
