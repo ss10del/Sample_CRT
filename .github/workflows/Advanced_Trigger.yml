@@ -164,6 +164,20 @@ jobs:
           echo "crt_status=$FINAL_STATUS" >> $GITHUB_OUTPUT
           echo "Final CRT result: $FINAL_STATUS"
 
+      - name: Debug Secret Names
+        run: |
+          echo "CRT_JOB_ID        length: ${#S1}"
+          echo "CRT_TEST_JOB_ID   length: ${#S2}"
+          echo "CRT_JOB           length: ${#S3}"
+          echo "CRT_PROJECT_ID    length: ${#S4}"
+          echo "CRT_API_TOKEN     length: ${#S5}"
+        env:
+          S1: ${{ secrets.CRT_JOB_ID }}
+          S2: ${{ secrets.CRT_TEST_JOB_ID }}
+          S3: ${{ secrets.CRT_JOB }}
+          S4: ${{ secrets.CRT_PROJECT_ID }}
+          S5: ${{ secrets.CRT_API_TOKEN }}
+
       # ── STEP 4 ─ Print summary ─────────────────────────────────────────────
       - name: Print Job Summary
         if: always() && steps.pr_meta.outputs.has_pr == 'true'
