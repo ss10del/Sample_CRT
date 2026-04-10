@@ -68,15 +68,14 @@ jobs:
           echo "--- GITHUB_OUTPUT contents ---"
           cat $GITHUB_OUTPUT
 
-      # ── STEP 3 ─ Auth → Trigger CRT job → Poll to completion ──────────────
+      # ── STEP 3 ─ Trigger CRT job → Poll to completion ─────────────────────
       - name: Trigger and Poll CRT Job
         id: crt
         if: steps.pr_meta.outputs.has_pr == 'true'
         env:
           PROJECT_ID: ${{ secrets.CRT_PROJECT_ID }}
           JOB_ID:     ${{ secrets.CRT_TEST_JOB_ID }}
-          CRT_EMAIL:  ${{ secrets.CRT_EMAIL }}
-          CRT_PASS:   ${{ secrets.CRT_PASSWORD }}
+          API_TOKEN:  ${{ secrets.CRT_API_TOKEN }}
         run: |
           BASE="https://eu-robotic.copado.com/pace/v4"
 
@@ -85,35 +84,17 @@ jobs:
           echo "build_id=N/A"         >> $GITHUB_OUTPUT
           echo "crt_status=NOT RUN"   >> $GITHUB_OUTPUT
 
-          if [ -z "$PROJECT_ID" ] || [ -z "$JOB_ID" ]; then
-            echo "❌ Missing PROJECT_ID or JOB_ID secret"
+          if [ -z "$PROJECT_ID" ] || [ -z "$JOB_ID" ] || [ -z "$API_TOKEN" ]; then
+            echo "❌ Missing PROJECT_ID, JOB_ID or CRT_API_TOKEN secret"
             echo "crt_status=MISSING SECRETS" >> $GITHUB_OUTPUT
             exit 1
           fi
 
           echo "Using PROJECT_ID=$PROJECT_ID  JOB_ID=$JOB_ID"
 
-          # ── 1. Authenticate → get JWT Bearer token ─────────────────────────
-          echo "--- Authenticating with Copado CRT ---"
-          LOGIN_RESP=$(curl -s -X POST \
-            -H "Content-Type: application/json" \
-            -d "{\"email\":\"$CRT_EMAIL\",\"password\":\"$CRT_PASS\"}" \
-            "$BASE/auth/login")
+          AUTH_HEADER="Authorization: Bearer $API_TOKEN"
 
-          echo "Login response: $LOGIN_RESP"
-
-          TOKEN=$(echo "$LOGIN_RESP" | jq -r '.token // .data.token // .accessToken // empty')
-
-          if [ -z "$TOKEN" ] || [ "$TOKEN" = "null" ]; then
-            echo "❌ Authentication failed — could not extract token"
-            echo "crt_status=AUTH FAILED" >> $GITHUB_OUTPUT
-            exit 1
-          fi
-          echo "✅ Authenticated successfully"
-
-          AUTH_HEADER="Authorization: Bearer $TOKEN"
-
-          # ── 2. Fetch job name ──────────────────────────────────────────────
+          # ── 1. Fetch job name ──────────────────────────────────────────────
           echo "--- Fetching job info ---"
           JOB_INFO=$(curl -s \
             -H "$AUTH_HEADER" \
@@ -125,7 +106,7 @@ jobs:
           echo "job_name=$JOB_NAME" >> $GITHUB_OUTPUT
           echo "job_id=$JOB_ID"     >> $GITHUB_OUTPUT
 
-          # ── 3. Trigger build ───────────────────────────────────────────────
+          # ── 2. Trigger build ───────────────────────────────────────────────
           echo "--- Triggering build ---"
           TRIGGER_RESP=$(curl -s -X POST \
             -H "$AUTH_HEADER" \
@@ -142,7 +123,7 @@ jobs:
           echo "✅ Build triggered — Build ID: $BUILD_ID"
           echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
 
-          # ── 4. Poll until complete (max 30 min) ────────────────────────────
+          # ── 3. Poll until complete (max 30 min) ────────────────────────────
           MAX_ATTEMPTS=60
           ATTEMPT=0
           FINAL_STATUS="TIMED OUT"
