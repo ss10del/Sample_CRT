@@ -65,26 +65,6 @@ jobs:
             | jq -r '[.[] | select(.state=="APPROVED")] | last | .user.login // "No approver found"')
           echo "pr_approver=$APPROVER" >> $GITHUB_OUTPUT
 
-      - name: Discover GraphQL Schema
-        if: steps.pr_meta.outputs.has_pr == 'true'
-        run: |
-          TOKEN="${{ secrets.CRT_API_TOKEN }}"
-
-          echo "--- Querying available fields on builds response ---"
-          curl -s \
-            --header "X-Authorization: $TOKEN" \
-            --header "Content-Type: application/json" \
-            --data '{"query":"{ __type(name: \"RoboticBuildsResponse\") { fields { name type { name kind ofType { name kind } } } } }"}' \
-            https://graphql.eu-robotic.copado.com/v1
-
-          echo ""
-          echo "--- Querying available root query fields ---"
-          curl -s \
-            --header "X-Authorization: $TOKEN" \
-            --header "Content-Type: application/json" \
-            --data '{"query":"{ __schema { queryType { fields { name args { name type { name kind } } } } } }"}' \
-            https://graphql.eu-robotic.copado.com/v1
-      
       # ── STEP 3 ─ Trigger CRT job via GraphQL ──────────────────────────────
       - name: Trigger and Poll CRT Job
         id: crt
@@ -163,8 +143,6 @@ jobs:
               --data "$(jq -n --arg q "{ builds(projectId: $PROJECT_ID, jobId: $JOB_ID) { data { id status } } }" '{query: $q}')" \
               https://graphql.eu-robotic.copado.com/v1)
 
-            echo "Poll raw response: $STATUS_RESP"
-
             STATUS=$(echo "$STATUS_RESP" | jq -r \
               --argjson bid "$BUILD_ID" \
               '.data.builds.data // [] | map(select(.id == $bid)) | .[0].status // "UNKNOWN"' \
@@ -172,7 +150,7 @@ jobs:
 
             echo "Attempt $ATTEMPT/$MAX_ATTEMPTS — Status: $STATUS"
 
-            if [ "$STATUS" = "passed" ] || [ "$STATUS" = "success" ] || [ "$STATUS" = "completed" ]; then
+            if [ "$STATUS" = "succeeded" ] || [ "$STATUS" = "passed" ] || [ "$STATUS" = "success" ] || [ "$STATUS" = "completed" ]; then
               FINAL_STATUS="PASSED"
               break
             elif [ "$STATUS" = "failed" ] || [ "$STATUS" = "error" ] || [ "$STATUS" = "aborted" ]; then
