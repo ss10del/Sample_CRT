@@ -66,7 +66,7 @@ export const onBeforeUnloadHandler = () => {
 export const onLoadHandler = async (cmpRef) => {
     cmpRef.pageLevelReadOnly = validateUserReadOnlyAccess(cmpRef, 'trainingattendance');
     let IsApproved;
-    if (cmpRef?.pageRef?.attributes?.actionName == 'new') {
+    if (cmpRef?.pageRef?.attributes?.actionName === 'new') {
         cmpRef.DisableSelectParticipant = false;
         cmpRef.DisableParticipant = false;
         const input = cmpRef?.pageRef?.state?.defaultFieldValues;
@@ -79,44 +79,44 @@ export const onLoadHandler = async (cmpRef) => {
         const additionalParameter = params['additionalParameter'];
         const contextRecordId = params['contextRecordId'];
         cmpRef.dataObject.trainingattendance.Status__c = 'Scheduled';
-        if (additionalParameter == 'RFHP') {
+        if (additionalParameter === 'RFHP') {
             ParentInitiated = 'RFHP';
             cmpRef.RFHParticipantFilter = "Where Role__c = 'Resource Parent' and Id ='" + contextRecordId + "' ORDER BY CreatedDate desc";
             const query = "SELECT Organization__c, Organization__r.Approval_Date__c  FROM RFH_Participant__c  Where Id = '" + contextRecordId + "'  ORDER BY CreatedDate ASC";
             const results = await getSObjectList({ query: query });
-            if (results[NUM_0]?.Organization__r.Approval_Date__c != '') {
+            if (results[NUM_0]?.Organization__r.Approval_Date__c !== '') {
                 IsApproved = true;
             }
             cmpRef.dataObject.trainingattendance.Organization__c = results[NUM_0]?.Organization__c;
             cmpRef.dataObject.trainingattendance.RFH_Participant__c = contextRecordId;
-        } else if (additionalParameter == 'RFAP') {
+        } else if (additionalParameter === 'RFAP') {
             ParentInitiated = 'RFAP';
             IsApproved = false;
             cmpRef.dataObject.trainingattendance.Organization__c = null;
             cmpRef.ApplicationParticipantFilter = "Where Id ='" + contextRecordId + "' AND Related_Person_Type__c IN ('Primary Applicant','Co-Applicant') ORDER BY CreatedDate desc";
             cmpRef.dataObject.trainingattendance.Application_Related_Person__c = contextRecordId;
-        } else if (additionalParameter == 'RFH') {
+        } else if (additionalParameter === 'RFH') {
             ParentInitiated = 'RFH';
             const query = "SELECT Approval_Date__c  FROM Account  Where Id = '" + contextRecordId + "'  ORDER BY CreatedDate ASC";
             const results = await getSObjectList({ query: query });
-            if (results[NUM_0]?.Approval_Date__c != '') {
+            if (results[NUM_0]?.Approval_Date__c !== '') {
                 IsApproved = true;
             }
             cmpRef.dataObject.trainingattendance.Organization__c = contextRecordId;
             cmpRef.RFHParticipantFilter = " Where Role__c = 'Resource Parent' and Organization__c = '" + contextRecordId + "' ORDER BY CreatedDate desc";
-        } else if (additionalParameter == 'RFA') {
+        } else if (additionalParameter === 'RFA') {
             ParentInitiated = 'RFA';
             IsApproved = false;
             cmpRef.dataObject.trainingattendance.Organization__c = null;
             cmpRef.dataObject.trainingattendance.Application__c = contextRecordId;
             cmpRef.ApplicationParticipantFilter = "Where Application__c ='" + contextRecordId + "' AND Related_Person_Type__c IN ('Primary Applicant','Co-Applicant') ORDER BY CreatedDate desc";
         }
-        if (IsApproved == true) {
+        if (IsApproved === true) {
             cmpRef.dataObject.trainingattendance.Pre_Post_Approval_Training__c = 'Post Approval';
         } else {
             cmpRef.dataObject.trainingattendance.Pre_Post_Approval_Training__c = 'Pre-Approval';
         }
-    } else if (cmpRef?.dataObject?.trainingattendance?.Organization__c != null && cmpRef?.dataObject?.trainingattendance?.Organization__c != undefined) {
+    } else if (cmpRef?.dataObject?.trainingattendance?.Organization__c !== null && cmpRef?.dataObject?.trainingattendance?.Organization__c !== undefined) {
             cmpRef.RFHParticipantFilter = "Where Role__c = 'Resource Parent' and Organization__c ='" + cmpRef?.dataObject?.trainingattendance?.Organization__c + "' ORDER BY CreatedDate desc";
     }else{
             cmpRef.dataObject.trainingattendance.Organization__c = null;
@@ -142,14 +142,14 @@ export const onBlurHandler = () => {
  * @param {*} event         :- event type for what event method is called for
  */
 export const onChangeHandler = async (cmpRef) => {
-    if (cmpRef.dataObject.trainingattendance.Completed_Date__c != '' && cmpRef.dataObject.trainingattendance.Completed_Date__c != undefined) {
+    if (cmpRef.dataObject.trainingattendance.Completed_Date__c !== '' && cmpRef.dataObject.trainingattendance.Completed_Date__c !== undefined) {
         cmpRef.dataObject.trainingattendance.Status__c = 'Completed';
     } else {
         cmpRef.dataObject.trainingattendance.Status__c = 'Scheduled';
     }
-    if (cmpRef.dataObject.trainingattendance.Training_Type__c == 'CPR Training') {
+    if (cmpRef.dataObject.trainingattendance.Training_Type__c === 'CPR Training') {
         const results = await getSObjectList({ query: query });
-        if (results.length == NUM_0) {
+        if (results.length === NUM_0) {
             cmpRef.dataObject.trainingattendance.Pre_Post_Approval_Training__c = 'Pre-Approval';
         }
         
@@ -196,14 +196,14 @@ export const handleSaveRecordResponse = async (cmpRef) => {
         const ParticipantsList = [];
         const ListOfParticipantTrainId = [];
         let listForError = false;
-        if (cmpRef.dataObject.trainingattendance?.RFH_Participant__c != '' && cmpRef.dataObject.trainingattendance?.RFH_Participant__c != undefined) {
+        if (cmpRef.dataObject.trainingattendance?.RFH_Participant__c !== '' && cmpRef.dataObject.trainingattendance?.RFH_Participant__c !== undefined) {
            
             
             cwiParticipants = cmpRef.dataObject.trainingattendance?.RFH_Participant__c.split(';');
 
             if (cwiParticipants.length > NUM_0) {
                 let query = '';
-                if (cwiParticipants.length == NUM_1) {
+                if (cwiParticipants.length === NUM_1) {
                     query += "SELECT Training_Type__c,Scheduled_Date__c, Status__c,RFH_Participant__c  FROM Training_Attendance__c  Where Training_Type__c = 'CPR Training' AND RFH_Participant__c = '" + cwiParticipants[NUM_0] + "'  ORDER BY CreatedDate ASC";
                 } else {
 
@@ -215,12 +215,12 @@ export const handleSaveRecordResponse = async (cmpRef) => {
                 if (results.length > NUM_0) {
                     results.forEach(element => {
                         ListOfParticipantTrainId.push(element.RFH_Participant__c);
-                        if (element.Status__c == 'Scheduled') {
+                        if (element.Status__c === 'Scheduled') {
                             listForError = true;
                         }
                     })
                 }
-                if (cmpRef.dataObject.trainingattendance.Training_Type__c == 'Biennial CPR' && cmpRef.dataObject.trainingattendance.Status__c == 'Completed' && listForError) {
+                if (cmpRef.dataObject.trainingattendance.Training_Type__c === 'Biennial CPR' && cmpRef.dataObject.trainingattendance.Status__c === 'Completed' && listForError) {
                     showToast(cmpRef, ERROR, 'Biennial CPR Training cannot be marked as Complete as previous CPR training has not been completed.', ERROR_VARIANT);
                     return;
                 }
@@ -242,7 +242,7 @@ export const handleSaveRecordResponse = async (cmpRef) => {
                     obj.Training_Attendance_Description__c = cmpRef.dataObject.trainingattendance?.Training_Attendance_Description__c;
                     obj.Status__c = cmpRef.dataObject.trainingattendance?.Status__c;
                     const fifteendigitRFHParticipantIds = ListOfParticipantTrainId.map(rfhid => String(rfhid).substring(NUM_0, NUM_15));
-                    if (!fifteendigitRFHParticipantIds.includes(element) && cmpRef.dataObject.trainingattendance?.Training_Type__c == 'CPR Training') {
+                    if (!fifteendigitRFHParticipantIds.includes(element) && cmpRef.dataObject.trainingattendance?.Training_Type__c === 'CPR Training') {
 
                         obj.Pre_Post_Approval_Training__c = 'Pre-Approval';
                     } else {
@@ -255,13 +255,13 @@ export const handleSaveRecordResponse = async (cmpRef) => {
 
             }
         }
-        else if (cmpRef.dataObject.trainingattendance?.Application_Related_Person__c != '' && cmpRef.dataObject.trainingattendance?.Application_Related_Person__c != undefined) {
+        else if (cmpRef.dataObject.trainingattendance?.Application_Related_Person__c !== '' && cmpRef.dataObject.trainingattendance?.Application_Related_Person__c !== undefined) {
 
             cwiParticipants = cmpRef.dataObject.trainingattendance.Application_Related_Person__c.split(';');
 
             if (cwiParticipants.length > NUM_0) {
                 let query = '';
-                if (cwiParticipants.length == NUM_1) {
+                if (cwiParticipants.length === NUM_1) {
                     query += "SELECT Training_Type__c,Scheduled_Date__c, Status__c  FROM Training_Attendance__c  Where Training_Type__c = 'CPR Training' AND Application_Related_Person__c = '" + cwiParticipants + "'  ORDER BY CreatedDate ASC";
                 } else {
 
@@ -272,12 +272,12 @@ export const handleSaveRecordResponse = async (cmpRef) => {
                 const results = await getSObjectList({ query: query });
                 if (results.length > NUM_0) {
                     results.forEach(element => {
-                        if (element.Status__c == 'Scheduled') {
+                        if (element.Status__c === 'Scheduled') {
                             listForError = true;
                         }
                     })
                 }
-                if (cmpRef.dataObject.trainingattendance.Training_Type__c == 'Biennial CPR' && cmpRef.dataObject.trainingattendance.Status__c == 'Completed' && listForError) {
+                if (cmpRef.dataObject.trainingattendance.Training_Type__c === 'Biennial CPR' && cmpRef.dataObject.trainingattendance.Status__c === 'Completed' && listForError) {
                     showToast(cmpRef, ERROR, 'Biennial CPR Training cannot be marked as Complete as previous CPR training has not been completed.', ERROR_VARIANT);
                     return;
                 }
@@ -306,21 +306,21 @@ export const handleSaveRecordResponse = async (cmpRef) => {
         }
         if (ParticipantsList.length > NUM_0) {
             upsertTrainingRecords({ sobjectList: ParticipantsList }).then(result => {
-                if (result == 'Success') {
+                if (result === 'Success') {
                     const messageDetails = {};
                     messageDetails.title = '';
                     messageDetails.message = SUCCESS_MESSAGE;
                     messageDetails.variant = 'success';
                     showToast(cmpRef, SUCCESS, SUCCESS_MESSAGE, SUCCESS_VARIANT);
-                    if (ParentInitiated == 'RFHP') {
+                    if (ParentInitiated === 'RFHP') {
                         navigateAndClose('RFH_Participant__c', cmpRef.dataObject.trainingattendance?.RFH_Participant__c, cmpRef);
-                    } else if (ParentInitiated == 'RFH') {
+                    } else if (ParentInitiated === 'RFH') {
                         navigateAndClose('Account', cmpRef.dataObject.trainingattendance?.Organization__c, cmpRef);
-                    } else if (ParentInitiated == 'RFA') {
+                    } else if (ParentInitiated === 'RFA') {
                         navigateAndClose('Application__c', cmpRef.dataObject.trainingattendance?.Application__c, cmpRef);
-                    } else if (ParentInitiated == 'RFAP') {
+                    } else if (ParentInitiated === 'RFAP') {
                         navigateAndClose('ApplicationRelatedPerson__c', cmpRef.dataObject.trainingattendance?.Application_Related_Person__c,cmpRef);
-                    } else if (ParentInitiated == 'Reload') {
+                    } else if (ParentInitiated === 'Reload') {
                         window.location.reload();
                     }
 
@@ -358,8 +358,8 @@ async function navigateAndClose(objName, TArecordId, cmpRef) {
         const tabInfo = await getFocusedTabInfo();
     const tabId = tabInfo.tabId;
     await closeTab( tabId );
-} catch(e) {
- logger.error('Test 308 error' + e.message);
+} catch(error) {
+ logger.error('Test 308 error' + error.message);
 }
 }
 
@@ -375,7 +375,7 @@ function invokeWorkspaceAPI(methodName, methodArgs) {
                 methodArgs: methodArgs,
                 callback: (err, response) => {
                     if (err) {
-                        return reject(err);
+                        return reject(new Error(err).message);
                     } 
                         return resolve(response);
                     

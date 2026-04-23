@@ -356,8 +356,8 @@ cares_TrainingDetailsaccordionGroup0OpenSecs = ['accordionsection01carestraining
     handleHiddenRule(record) {
         const trainingattendancecFieldsToCheck = [
             { ruleName:  'isTrainingDetails_Other_Training_Category_Narrative__c2Hidden', condition : record.Training_Type__c !== 'Other', fieldName : 'Other_Training_Category_Narrative__c' ,value : '', clearErrorMsg : true } ,             
-            { ruleName:  'isGrid11Hidden', condition :(this.recordMap.get('Training_Attendance__c').Organization__c === null) } ,                
-            { ruleName:  'isGrid1Hidden', condition :!(this.recordMap.get('Training_Attendance__c').Organization__c === null) } ,                
+            { ruleName:  'isGrid11Hidden', condition :(this.recordMap.get('Training_Attendance__c').(Organization__c === null || Organization__c === undefined)) } ,                
+            { ruleName:  'isGrid1Hidden', condition :!(this.recordMap.get('Training_Attendance__c').(Organization__c === null || Organization__c === undefined)) } ,                
             { ruleName:  'isGrid121Hidden', condition :(this.recordMap.get('Training_Attendance__c').Pre_Post_Approval_Training__c === "Pre-Approval") } ,                
             { ruleName:  'isGrid122Hidden', condition :!(this.recordMap.get('Training_Attendance__c').Training_Provider__c === 'Other') } ,                
             { ruleName:  'isbuttonGroupHidden', condition :this.pageLevelReadOnly } 
